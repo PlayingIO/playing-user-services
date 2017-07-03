@@ -14,7 +14,7 @@ const accepts = {
 
 const currentMe = hook => {
   if (hook.id === 'me' && hook.params.user) {
-    hook.id = hook.params.user._id;
+    hook.id = hook.params.user.id;
   }
   return hook;
 };
