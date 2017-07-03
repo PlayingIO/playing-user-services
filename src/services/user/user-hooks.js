@@ -27,23 +27,35 @@ const isChangePassword = hook => {
 module.exports = {
   before: {
     all: [
-      auth.authenticate('jwt'),
       hooks.validation(accepts),
+    ],
+    find: [
+      auth.authenticate('jwt'),
+      currentMe
+    ],
+    get: [
+      auth.authenticate('jwt'),
       currentMe
     ],
     create: [
       local.hooks.hashPassword()
     ],
     update: [
+      auth.authenticate('jwt'),
       unless(isChangePassword,
         local.hooks.hashPassword()
       )
     ],
     patch: [
+      auth.authenticate('jwt'),
       unless(isChangePassword,
         local.hooks.hashPassword()
       )
     ],
+    remove: [
+      auth.authenticate('jwt'),
+      currentMe
+    ]
   },
   after: {
     all: [

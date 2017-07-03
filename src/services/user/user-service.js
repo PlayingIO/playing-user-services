@@ -5,6 +5,7 @@ import UserModel from '~/models/user-model';
 import defaultHooks from './user-hooks';
 
 const defaultOptions = {
+  id: 'id', // service.id for authentication
   name: 'user-service'
 };
 
