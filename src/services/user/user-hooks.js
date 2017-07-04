@@ -1,5 +1,6 @@
 import { hooks as auth } from 'feathers-authentication';
 import local from 'feathers-authentication-local';
+import errors from 'feathers-errors';
 import { remove, unless } from 'feathers-hooks-common';
 import { hooks } from 'mostly-feathers-mongoose';
 import UserEntity from '~/entities/user-entity';
@@ -14,7 +15,11 @@ const accepts = {
 
 const currentMe = hook => {
   if (hook.id === 'me' && hook.params.user) {
-    hook.id = hook.params.user.id;
+    if (hook.params.user.id) {
+      hook.id = hook.params.user.id;
+    } else {
+      throw new errors.GeneralError('authenticate payload is null');
+    }
   }
   return hook;
 };
