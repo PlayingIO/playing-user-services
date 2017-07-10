@@ -13,9 +13,9 @@ const accepts = {
   ],
 };
 
-const currentMe = hook => {
+const currentMe = options => hook => {
   if (hook.id === 'me' && hook.params.user) {
-    if (hook.params.user.id) {
+    if (hook.params.user && hook.params.user.id) {
       hook.id = hook.params.user.id;
     } else {
       throw new errors.GeneralError('authenticate payload is null');
@@ -36,11 +36,11 @@ module.exports = {
     ],
     find: [
       auth.authenticate('jwt'),
-      currentMe
+      currentMe()
     ],
     get: [
       auth.authenticate('jwt'),
-      currentMe
+      currentMe()
     ],
     create: [
       local.hooks.hashPassword()
@@ -59,7 +59,7 @@ module.exports = {
     ],
     remove: [
       auth.authenticate('jwt'),
-      currentMe
+      currentMe()
     ]
   },
   after: {
