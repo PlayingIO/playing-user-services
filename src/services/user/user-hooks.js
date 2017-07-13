@@ -29,45 +29,47 @@ const isChangePassword = hook => {
 };
 
 
-module.exports = {
-  before: {
-    all: [
-      hooks.validation(accepts),
-    ],
-    find: [
-      auth.authenticate('jwt'),
-      currentMe()
-    ],
-    get: [
-      auth.authenticate('jwt'),
-      currentMe()
-    ],
-    create: [
-      local.hooks.hashPassword()
-    ],
-    update: [
-      auth.authenticate('jwt'),
-      unless(isChangePassword,
+module.exports = function(options = {}) {
+  return {
+    before: {
+      all: [
+        hooks.validation(accepts),
+      ],
+      find: [
+        auth.authenticate('jwt'),
+        currentMe()
+      ],
+      get: [
+        auth.authenticate('jwt'),
+        currentMe()
+      ],
+      create: [
         local.hooks.hashPassword()
-      )
-    ],
-    patch: [
-      auth.authenticate('jwt'),
-      unless(isChangePassword,
-        local.hooks.hashPassword()
-      )
-    ],
-    remove: [
-      auth.authenticate('jwt'),
-      currentMe()
-    ]
-  },
-  after: {
-    all: [
-      //remove('password'),
-      hooks.populate('groups', { service: 'groups' }),
-      hooks.presentEntity(UserEntity),
-      hooks.responder()
-    ]
-  }
+      ],
+      update: [
+        auth.authenticate('jwt'),
+        unless(isChangePassword,
+          local.hooks.hashPassword()
+        )
+      ],
+      patch: [
+        auth.authenticate('jwt'),
+        unless(isChangePassword,
+          local.hooks.hashPassword()
+        )
+      ],
+      remove: [
+        auth.authenticate('jwt'),
+        currentMe()
+      ]
+    },
+    after: {
+      all: [
+        //remove('password'),
+        hooks.populate('groups', { service: 'groups' }),
+        hooks.presentEntity(UserEntity),
+        hooks.responder()
+      ]
+    }
+  };
 };

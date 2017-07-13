@@ -14,7 +14,7 @@ class GroupService extends Service {
 
   setup(app) {
     super.setup(app);
-    this.hooks(defaultHooks);
+    this.hooks(defaultHooks(this.options));
   }
 }
 
