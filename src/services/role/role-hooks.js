@@ -11,7 +11,7 @@ module.exports = function(options = {}) {
     },
     after: {
       all: [
-        hooks.presentEntity(RoleEntity),
+        hooks.presentEntity(RoleEntity, options),
         hooks.responder()
       ]
     }

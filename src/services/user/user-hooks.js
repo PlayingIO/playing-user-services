@@ -67,7 +67,7 @@ module.exports = function(options = {}) {
       all: [
         //remove('password'),
         hooks.populate('groups', { service: 'groups' }),
-        hooks.presentEntity(UserEntity),
+        hooks.presentEntity(UserEntity, options),
         hooks.responder()
       ]
     }
