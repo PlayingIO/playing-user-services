@@ -3,7 +3,7 @@ import GroupModel from '~/models/group-model';
 import defaultHooks from './group-hooks';
 
 const defaultOptions = {
-  name: 'group-service'
+  name: 'groups'
 };
 
 class GroupService extends Service {

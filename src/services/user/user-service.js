@@ -5,7 +5,7 @@ import UserModel from '~/models/user-model';
 import defaultHooks from './user-hooks';
 
 const defaultOptions = {
-  name: 'user-service'
+  name: 'users'
 };
 
 class UserService extends Service {

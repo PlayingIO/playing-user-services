@@ -3,7 +3,7 @@ import RoleModel from '~/models/role-model';
 import defaultHooks from './role-hooks';
 
 const defaultOptions = {
-  name: 'role-service'
+  name: 'roles'
 };
 
 class RoleService extends Service {
