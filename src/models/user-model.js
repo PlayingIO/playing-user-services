@@ -3,13 +3,13 @@ import random from 'mongoose-random';
 import timestamps from 'mongoose-timestamp';
 
 const fields = {
-  username: { type: 'String', required: true },
+  username: { type: 'String', unique: true, required: true },
   password: { type: 'String', required: true },
   groups: [{ type: 'ObjectId', ref:'group', default: [] }],
   roles: [{ type: 'ObjectId', ref:'role', default: [] }],
   nickname: { type: 'String' },
-  email: { type: 'String' },
-  mobile: { type: 'String' },
+  email: { type: 'String', unique: true, sparse: true },
+  mobile: { type: 'String', unique: true, sparse: true },
   gender: { type: 'String', enum: ['MALE', 'FEMALE', 'UNKNOWN'], default: 'MALE' },
   avatar: { type: 'ObjectId', ref: 'resource' },
   intro: { type: 'String', default: '' },
