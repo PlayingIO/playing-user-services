@@ -7,6 +7,8 @@ const fields = {
   password: { type: 'String', required: true },
   groups: [{ type: 'ObjectId', ref:'group', default: [] }],
   roles: [{ type: 'ObjectId', ref:'role', default: [] }],
+  firstname: { type: 'String' },
+  lastname: { type: 'String' },
   nickname: { type: 'String' },
   email: { type: 'String', unique: true, sparse: true },
   mobile: { type: 'String', unique: true, sparse: true },
