@@ -23,9 +23,7 @@ const fields = {
     followersCount: { type: 'Number', default: 0 },
     followeesCount: { type: 'Number', default: 0 },
     browseNum: { type: 'Number', default: 0 },
-    bookCount: { type: 'Number', default: 0 },
-    letterCount: { type: 'Number', default: 0 },
-    albumCount: { type: 'Number', default: 0 },
+    bookCount: { type: 'Number', default: 0 }
   },
   socials: {
     wechat: {
@@ -37,7 +35,8 @@ const fields = {
   alerts: { type: 'Mixed' }, // last read time of each kind of alerts
   // e.g. { <alertId>: new Date() }
   invitation: { type: 'String' }, // invitation
-  official: { type: 'Boolean' }, // official account
+  isAdministrator: { type: 'Boolean' }, // admin account
+  isOfficial: { type: 'Boolean' }, // official account
   status: { type: 'Number', default: 0 },
   extras: {
     lastDeviceUDID: { type: 'String' }, // last device
