@@ -1,7 +1,7 @@
 import { hooks as auth } from 'feathers-authentication';
 import local from 'feathers-authentication-local';
 import errors from 'feathers-errors';
-import { remove, unless } from 'feathers-hooks-common';
+import { iff, isProvider, remove, unless } from 'feathers-hooks-common';
 import { hooks } from 'mostly-feathers-mongoose';
 import UserEntity from '~/entities/user-entity';
 
@@ -48,15 +48,11 @@ module.exports = function(options = {}) {
       ],
       update: [
         auth.authenticate('jwt'),
-        unless(isChangePassword,
-          local.hooks.hashPassword()
-        )
+        unless(isChangePassword, local.hooks.hashPassword())
       ],
       patch: [
         auth.authenticate('jwt'),
-        unless(isChangePassword,
-          local.hooks.hashPassword()
-        )
+        unless(isChangePassword, local.hooks.hashPassword())
       ],
       remove: [
         auth.authenticate('jwt'),
@@ -65,7 +61,7 @@ module.exports = function(options = {}) {
     },
     after: {
       all: [
-        //remove('password'),
+        iff(isProvider('external'), remove('password')),
         hooks.populate('groups', { service: 'groups' }),
         hooks.presentEntity(UserEntity, options),
         hooks.responder()
