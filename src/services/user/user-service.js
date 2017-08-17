@@ -19,6 +19,11 @@ class UserService extends Service {
     this.hooks(defaultHooks(this.options));
   }
 
+  invite(id, data, params) {
+    // TODO invite user
+    return data;
+  }
+
   changePassword(id, data, params, user) {
     assert(bcrypt.compareSync(data.password, user.password), 'Old password incorrect');
     return this.patch(id, { password: data.passwordNew }, params);

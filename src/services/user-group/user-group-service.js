@@ -20,19 +20,27 @@ class UserGroupService {
 
   // latest users & groups
   find(params) {
+    params.query.$limit = params.query.$limit || 2;
+
     const users = this.app.service('users');
     const groups = this.app.service('groups');
-    params.query.$limit = params.query.$limit || 2;
-    return Promise.all([
-      users.find(params),
-      groups.find(params)
-    ]).then(([latestusers, latestGroups]) => {
-      const sortByCreatedAt = fp.sort((a, b) => moment(a.createdAt).diff(b.createdAt));
-      let results = fp.concat(
-        fp.map(fp.assoc('type', 'user'), latestusers.data),
-        fp.map(fp.assoc('type', 'group'), latestGroups.data),
+    const dissocType = fp.dissocPath(['query', 'type']);
+
+    let promises = {};
+    if (!params.query.type || params.query.type === 'user') {
+      promises.latestUsers = users.find(dissocType(params));
+    }
+    if (!params.query.type || params.query.type === 'group') {
+      promises.latestGroups = groups.find(dissocType(params));
+    }
+    return Promise.props(promises).then((results) => {
+      const sortByCreatedAt = fp.sort((a, b) => moment(a.createdAt).diff(b.createdAt) * -1);
+      const dataOf = fp.propOr([], 'data');
+      const data = fp.concat(
+        fp.map(fp.assoc('type', 'user'), dataOf(results.latestUsers)),
+        fp.map(fp.assoc('type', 'group'), dataOf(results.latestGroups)),
       );
-      return sortByCreatedAt(results);
+      return sortByCreatedAt(data);
     });
   }
 }
