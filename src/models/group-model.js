@@ -4,7 +4,7 @@ import { plugins } from 'mostly-feathers-mongoose';
 
 const fields = {
   name: { type: 'String', required: true, unique: true },
-  label: { type: 'String' },
+  label: { type: 'String', required: true },
   description: { type: 'String' },
 };
 

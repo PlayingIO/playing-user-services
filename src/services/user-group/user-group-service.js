@@ -18,27 +18,34 @@ class UserGroupService {
     this.hooks(defaultHooks(this.options));
   }
 
-  // latest users & groups
+  // latest users & groups or search by term
   find(params) {
     params.query.$limit = params.query.$limit || 2;
 
     const users = this.app.service('users');
     const groups = this.app.service('groups');
-    const dissocType = fp.dissocPath(['query', 'type']);
+    const dissocTerm = term => params => {
+      let query = fp.dissoc('type', params.query);
+      if (query.term) {
+        query = fp.assoc(term, query.term, query);
+        query = fp.dissoc('term', query);
+      }
+      return fp.assoc('query', query, params);
+    };
 
     let promises = {};
-    if (!params.query.type || params.query.type === 'user') {
-      promises.latestUsers = users.find(dissocType(params));
+    if (!params.query.type || params.query.type === 'user' || params.query.type === 'user-group') {
+      promises.latestUsers = users.find(dissocTerm('username')(params));
     }
-    if (!params.query.type || params.query.type === 'group') {
-      promises.latestGroups = groups.find(dissocType(params));
+    if (!params.query.type || params.query.type === 'group' || params.query.type === 'user-group') {
+      promises.latestGroups = groups.find(dissocTerm('name')(params));
     }
     return Promise.props(promises).then((results) => {
       const sortByCreatedAt = fp.sort((a, b) => moment(a.createdAt).diff(b.createdAt) * -1);
       const dataOf = fp.propOr([], 'data');
       const data = fp.concat(
-        fp.map(fp.assoc('type', 'user'), dataOf(results.latestUsers)),
-        fp.map(fp.assoc('type', 'group'), dataOf(results.latestGroups)),
+        fp.propOr([], 'data', results.latestUsers),
+        fp.propOr([], 'data', results.latestGroups)
       );
       return sortByCreatedAt(data);
     });

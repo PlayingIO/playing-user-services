@@ -16,6 +16,17 @@ class GroupService extends Service {
     super.setup(app);
     this.hooks(defaultHooks(this.options));
   }
+
+  groups(id, data, params, orignal) {
+    return []; // sub groups
+  }
+
+  users(id, data, params, orignal) {
+    params.query = params.query || {};
+    params.query.groups = orignal.id;
+    const users = this.app.service('users');
+    return users.find(params); // with provider
+  }
 }
 
 export default function init(app, options, hooks) {
