@@ -38,7 +38,7 @@ class UserGroupService {
       promises.latestUsers = users.find(dissocTerm('username')(params));
     }
     if (!params.query.type || params.query.type === 'group' || params.query.type === 'user-group') {
-      promises.latestGroups = groups.find(dissocTerm('name')(params));
+      promises.latestGroups = groups.find(dissocTerm('groupname')(params));
     }
     return Promise.props(promises).then((results) => {
       const sortByCreatedAt = fp.sort((a, b) => moment(a.createdAt).diff(b.createdAt) * -1);

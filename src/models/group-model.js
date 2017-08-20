@@ -3,7 +3,8 @@ import timestamps from 'mongoose-timestamp';
 import { plugins } from 'mostly-feathers-mongoose';
 
 const fields = {
-  name: { type: 'String', required: true, unique: true },
+  groupname: { type: 'String', required: true, unique: true },
+  parent: { type: 'ObjectId' }, // parent group
   label: { type: 'String', required: true },
   description: { type: 'String' },
 };

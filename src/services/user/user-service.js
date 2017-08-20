@@ -1,6 +1,8 @@
 import assert from 'assert';
 import bcrypt from 'bcryptjs';
 import { Service, createService } from 'mostly-feathers-mongoose';
+import fp from 'ramda';
+
 import UserModel from '~/models/user-model';
 import defaultHooks from './user-hooks';
 
@@ -22,6 +24,17 @@ class UserService extends Service {
   invite(id, data, params) {
     // TODO invite user
     return data;
+  }
+
+  addGroup(id, data, params, original) {
+    assert(data.group || data.groups, 'data.group not privided');
+    const addGroups = fp.pipe(
+      fp.map(group => String(group.id || group)),
+      fp.concat([data.group] || data.groups),
+      fp.uniq
+    );
+    let groups = addGroups(original.groups || []);
+    return super.patch(id, { groups }, params);
   }
 
   changePassword(id, data, params, user) {

@@ -1,7 +1,8 @@
 import Entity from 'mostly-entity';
 
 const GroupEntity = new Entity('Group', {
-  type: { default: 'group' }
+  type: { default: 'group' },
+  displayLabel: { get: 'label' }
 });
 
 GroupEntity.excepts('updatedAt', 'destroyedAt');
