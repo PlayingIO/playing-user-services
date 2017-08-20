@@ -29,11 +29,22 @@ class UserService extends Service {
   addGroup(id, data, params, original) {
     assert(data.group || data.groups, 'data.group not privided');
     const addGroups = fp.pipe(
-      fp.map(group => String(group.id || group)),
+      fp.map(fp.toString),
       fp.concat([data.group] || data.groups),
       fp.uniq
     );
     let groups = addGroups(original.groups || []);
+    return super.patch(id, { groups }, params);
+  }
+
+  removeGroup(id, data, params, original) {
+    assert(data.group || data.groups, 'data.group not privided');
+    const removeGroups = fp.pipe(
+      fp.map(fp.toString),
+      fp.reject(g => ([data.group] || data.groups).indexOf(g) > -1),
+      fp.uniq
+    );
+    let groups = removeGroups(original.groups || []);
     return super.patch(id, { groups }, params);
   }
 
