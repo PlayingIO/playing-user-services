@@ -18,17 +18,23 @@ class GroupService extends Service {
     this.hooks(defaultHooks(this.options));
   }
 
-  _addUser(group, users) {
+  _updateUsers(group, users) {
     const service = this.app.service('users');
     const ids = fp.map(u => u.id || u);
+
     const newUsers = ids(users);
     const oldUsers = ids(group.users || []);
-    const diffUsers = fp.difference(oldUsers, newUsers);
+
+    const addUsers = fp.difference(newUsers, oldUsers);
+    const removeUsers = fp.difference(oldUsers, newUsers);
+    
     const addGroups = fp.map(user => service.action('patch', 'addGroup', user, { group: group.id }));
     const removeGroups = fp.map(user => service.action('patch', 'removeGroup', user, { group: group.id }));
-    return Promise.all(addGroups(newUsers))
-      .then(() => Promise.all(removeGroups(diffUsers)))
-      .then(() => group);
+    
+    return Promise.all(fp.concat(
+        addGroups(addUsers),
+        removeGroups(removeUsers)
+      )).then(() => group);
   }
 
   _getUsers(group, params) {
