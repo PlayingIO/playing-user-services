@@ -5,7 +5,7 @@ const UserEntity = new Entity('User', {
 });
 
 UserEntity.expose('displayLabel', {}, (obj) => {
-  return obj.nickname || (obj.firsName? obj.firsName + ' ' + obj.lastName : obj.username);
+  return obj.nickname || (obj.firstName? obj.firstName + ' ' + obj.lastName : obj.username);
 });
 
 UserEntity.excepts('random', 'destroyedAt');
