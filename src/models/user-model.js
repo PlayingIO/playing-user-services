@@ -3,10 +3,10 @@ import random from 'mongoose-random';
 import timestamps from 'mongoose-timestamp';
 
 const fields = {
-  username: { type: 'String', unique: true, required: true }, // login (also can login with email or mobile)
+  username: { type: 'String', unique: true, required: true }, // login (maybe same as email or mobile)
   email: { type: 'String', unique: true, sparse: true },      // credential email
   mobile: { type: 'String', unique: true, sparse: true },     // credential mobile
-  nickname: { type: 'String' },  // display
+  nickname: { type: 'String' },  // display name
   firstName: { type: 'String' }, // real name
   lastName: { type: 'String' },  // real name
   password: { type: 'String', required: true },

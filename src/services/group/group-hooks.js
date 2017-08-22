@@ -12,9 +12,7 @@ module.exports = function(options = {}) {
     },
     after: {
       all: [
-        iff(hooks.isHeader('fetch.group', 'memberUsers'),
-          hooks.assoc('users', { field: 'groups', service: 'users' })
-        ),
+        hooks.assoc('users', { field: 'groups', service: 'users' }),
         hooks.presentEntity(GroupEntity, options),
         hooks.responder()
       ]

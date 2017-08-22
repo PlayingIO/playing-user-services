@@ -62,9 +62,7 @@ module.exports = function(options = {}) {
     after: {
       all: [
         iff(isProvider('external'), discard('password')),
-        iff(hooks.isHeader('fetch.user', 'memberGroups'),
-          hooks.populate('groups', { service: 'groups' })
-        ),
+        hooks.populate('groups', { service: 'groups' }),
         hooks.presentEntity(UserEntity, options),
         hooks.responder()
       ]
