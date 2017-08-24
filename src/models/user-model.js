@@ -10,10 +10,10 @@ const fields = {
   firstName: { type: 'String' }, // real name
   lastName: { type: 'String' },  // real name
   password: { type: 'String', required: true },
-  groups: [{ type: 'ObjectId', ref:'group', default: [] }],
-  roles: [{ type: 'ObjectId', ref:'role', default: [] }],
+  groups: [{ type: 'ObjectId' }],
+  roles: [{ type: 'ObjectId' }],
   gender: { type: 'String', enum: ['MALE', 'FEMALE', 'UNKNOWN'], default: 'MALE' },
-  avatar: { type: 'ObjectId', ref: 'resource' },
+  avatar: { type: 'Mixed' }, // TODO blob schema
   intro: { type: 'String', default: '' },
   birthday: { type: 'Date' },
   company: { type: 'String' },

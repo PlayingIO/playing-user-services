@@ -44,14 +44,17 @@ module.exports = function(options = {}) {
         currentMe()
       ],
       create: [
+        hooks.depopulate('groups'),
         local.hooks.hashPassword()
       ],
       update: [
         auth.authenticate('jwt'),
+        hooks.depopulate('groups'),
         unless(isChangePassword, local.hooks.hashPassword())
       ],
       patch: [
         auth.authenticate('jwt'),
+        hooks.depopulate('groups'),
         unless(isChangePassword, local.hooks.hashPassword())
       ],
       remove: [
