@@ -22,8 +22,9 @@ class UserService extends Service {
   }
 
   invite(id, data, params) {
+    assert(data.user, 'data.user not privided');
     // TODO invite user
-    return data;
+    return data.user;
   }
 
   addGroup(id, data, params, original) {

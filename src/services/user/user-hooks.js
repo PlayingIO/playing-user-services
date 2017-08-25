@@ -49,11 +49,13 @@ module.exports = function(options = {}) {
       ],
       update: [
         auth.authenticate('jwt'),
+        currentMe(),
         hooks.depopulate('groups'),
         unless(isChangePassword, local.hooks.hashPassword())
       ],
       patch: [
         auth.authenticate('jwt'),
+        currentMe(),
         hooks.depopulate('groups'),
         unless(isChangePassword, local.hooks.hashPassword())
       ],
