@@ -2,6 +2,10 @@ import { plugins } from 'mostly-feathers-mongoose';
 import random from 'mongoose-random';
 import timestamps from 'mongoose-timestamp';
 
+/*
+ * A "user" belongs to some "groups"
+ * "roles" are assigned to a user to grant the permissions
+ */
 const fields = {
   username: { type: 'String', unique: true, required: true }, // login (maybe same as email or mobile)
   email: { type: 'String', unique: true, sparse: true },      // credential email

@@ -32,9 +32,9 @@ class GroupService extends Service {
     const removeGroups = fp.map(user => service.action('patch', 'removeGroup', user, { group: group.id }));
     
     return Promise.all(fp.concat(
-        addGroups(addUsers),
-        removeGroups(removeUsers)
-      )).then(() => group);
+      addGroups(addUsers),
+      removeGroups(removeUsers)
+    )).then(() => group);
   }
 
   _getUsers(group, params) {
