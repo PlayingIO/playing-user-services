@@ -21,7 +21,7 @@ class UserGroupService {
 
   // latest users & groups or search by term
   find(params) {
-    params.query.$limit = params.query.$limit || 2;
+    params = Object.assign({ query: {} }, params);
 
     const users = this.app.service('users');
     const groups = this.app.service('groups');
@@ -50,6 +50,24 @@ class UserGroupService {
       );
       return sortByCreatedAt(data);
     });
+  }
+
+  get(id, params) {
+    params = Object.assign({ query: {} }, params);
+
+    params.query.id = id;
+    params.query.$limit = 1;
+    params.paginate = false;
+
+    const findUser = this.app.service('users').find(id, params);
+    const findGroup = this.app.service('groups').find(id, params);
+
+    return Promise.all([findUser, findGroup])
+      .then(([users, groups]) => {
+        if (users && users.length > 0) return users[0];
+        if (groups && groups.length > 0) return groups[0];
+        return null;
+      });
   }
 }
 
