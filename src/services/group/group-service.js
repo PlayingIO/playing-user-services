@@ -1,5 +1,6 @@
 import { Service, createService } from 'mostly-feathers-mongoose';
-import fp from 'ramda';
+import fp from 'mostly-func';
+
 import GroupModel from '~/models/group-model';
 import defaultHooks from './group-hooks';
 

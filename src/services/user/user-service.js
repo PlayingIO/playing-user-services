@@ -1,7 +1,7 @@
 import assert from 'assert';
 import bcrypt from 'bcryptjs';
 import { Service, createService } from 'mostly-feathers-mongoose';
-import fp from 'ramda';
+import fp from 'mostly-func';
 
 import UserModel from '~/models/user-model';
 import defaultHooks from './user-hooks';
