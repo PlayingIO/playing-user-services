@@ -12,7 +12,7 @@ module.exports = function(options = {}) {
     },
     after: {
       all: [
-        hooks.assoc('users', { field: 'groups', service: 'users' }),
+        hooks.assoc('users', { service: 'users', field: 'groups' }),
         hooks.presentEntity(GroupEntity, options),
         hooks.responder()
       ]
