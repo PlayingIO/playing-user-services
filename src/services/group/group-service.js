@@ -89,19 +89,19 @@ class GroupService extends Service {
     });
   }
 
-  updateUsers(id, data, params, orignal) {
+  _updateUsers(id, data, params, orignal) {
     assert(data.user || data.users, 'data.user not provided');
     return this._updateUsers(orignal, [].concat(data.user || data.users));
   }
 
   // nested groups
-  groups(id, data, params, orignal) {
+  _groups(id, data, params, orignal) {
     params.query = params.query || {};
     params.query.parent = orignal.id;
     return this.find(params); // with provider
   }
 
-  users(id, data, params, orignal) {
+  _users(id, data, params, orignal) {
     return this._getUsers(orignal, params);
   }
 }

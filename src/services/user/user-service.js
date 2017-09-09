@@ -27,7 +27,7 @@ class UserService extends Service {
     return data.user;
   }
 
-  addGroup(id, data, params, original) {
+  _addGroup(id, data, params, original) {
     assert(data.group || data.groups, 'data.group not privided');
     const addGroups = fp.pipe(
       fp.map(fp.toString),
@@ -38,7 +38,7 @@ class UserService extends Service {
     return super.patch(id, { groups }, params);
   }
 
-  removeGroup(id, data, params, original) {
+  _removeGroup(id, data, params, original) {
     assert(data.group || data.groups, 'data.group not privided');
     const removeGroups = fp.pipe(
       fp.map(fp.toString),
@@ -49,7 +49,7 @@ class UserService extends Service {
     return super.patch(id, { groups }, params);
   }
 
-  changePassword(id, data, params, user) {
+  _changePassword(id, data, params, user) {
     assert(bcrypt.compareSync(data.password, user.password), 'Old password incorrect');
     return this.patch(id, { password: data.passwordNew }, params);
   }
