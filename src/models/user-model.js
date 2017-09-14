@@ -25,7 +25,6 @@ const fields = {
   intro: { type: 'String', default: '' },
   status: { type: 'Number', default: 0 },
   isAdministrator: { type: 'Boolean' }, // admin account
-  isOfficial: { type: 'Boolean' }, // official account
 
   alerts: { type: 'Mixed' },  // last read time of each kind of alerts
                               // e.g. { <alertId>: new Date() }
