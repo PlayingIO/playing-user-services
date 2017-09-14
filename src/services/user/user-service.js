@@ -21,7 +21,7 @@ class UserService extends Service {
     this.hooks(defaultHooks(this.options));
   }
 
-  invite(id, data, params) {
+  _invite(id, data, params) {
     assert(data.user, 'data.user not privided');
     // TODO invite user
     return data.user;
@@ -34,7 +34,7 @@ class UserService extends Service {
       fp.concat([data.group] || data.groups),
       fp.uniq
     );
-    let groups = addGroups(original.groups || []);
+    const groups = addGroups(original.groups || []);
     return super.patch(id, { groups }, params);
   }
 
@@ -45,7 +45,7 @@ class UserService extends Service {
       fp.reject(g => ([data.group] || data.groups).indexOf(g) > -1),
       fp.uniq
     );
-    let groups = removeGroups(original.groups || []);
+    const groups = removeGroups(original.groups || []);
     return super.patch(id, { groups }, params);
   }
 
