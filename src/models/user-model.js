@@ -46,7 +46,7 @@ const fields = {
   statistics: { type: 'Mixed' },
 };
 
-export default function model(app, name) {
+export default function model (app, name) {
   const mongoose = app.get('mongoose');
   const schema = new mongoose.Schema(fields);
   schema.plugin(timestamps);
