@@ -1,3 +1,4 @@
+import assert from 'assert';
 import { Service, createService } from 'mostly-feathers-mongoose';
 import fp from 'mostly-func';
 
@@ -29,8 +30,10 @@ class GroupService extends Service {
     const addUsers = fp.difference(newUsers, oldUsers);
     const removeUsers = fp.difference(oldUsers, newUsers);
     
-    const addGroups = fp.map(user => service.action('addGroup').patch(user, { group: group.id }));
-    const removeGroups = fp.map(user => service.action('removeGroup').patch(user, { group: group.id }));
+    const addGroups = fp.map(user =>
+      service.action('addGroup').patch(user, { group: group.id }));
+    const removeGroups = fp.map(user =>
+      service.action('removeGroup').patch(user, { group: group.id }));
     
     return Promise.all(fp.concat(
       addGroups(addUsers),
@@ -89,11 +92,6 @@ class GroupService extends Service {
     });
   }
 
-  _updateUsers(id, data, params, orignal) {
-    assert(data.user || data.users, 'data.user not provided');
-    return this._updateUsers(orignal, [].concat(data.user || data.users));
-  }
-
   // nested groups
   _groups(id, data, params, orignal) {
     params.query = params.query || {};
@@ -104,6 +102,7 @@ class GroupService extends Service {
   _users(id, data, params, orignal) {
     return this._getUsers(orignal, params);
   }
+  
 }
 
 export default function init(app, options, hooks) {
