@@ -50,7 +50,7 @@ module.exports = function(options = {}) {
     after: {
       all: [
         iff(isProvider('external'), discard('password')),
-        hooks.populate('groups', { service: 'groups' }),
+        hooks.populate('groups', { service: 'groups', fallThrough: ['headers'] }),
         hooks.presentEntity(UserEntity, options),
         hooks.responder()
       ]
