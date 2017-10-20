@@ -21,7 +21,7 @@ class GroupService extends Service {
   }
 
   _updateUsers(group, users) {
-    const service = this.app.service('users');
+    const svcUsers = this.app.service('users');
     const ids = fp.map(u => u.id || u);
 
     const newUsers = ids(users);
@@ -31,9 +31,9 @@ class GroupService extends Service {
     const removeUsers = fp.difference(oldUsers, newUsers);
     
     const addGroups = fp.map(user =>
-      service.action('addGroup').patch(user, { group: group.id }));
+      svcUsers.action('addGroup').patch(user, { group: group.id }));
     const removeGroups = fp.map(user =>
-      service.action('removeGroup').patch(user, { group: group.id }));
+      svcUsers.action('removeGroup').patch(user, { group: group.id }));
     
     return Promise.all(fp.concat(
       addGroups(addUsers),
@@ -45,8 +45,8 @@ class GroupService extends Service {
     params = params || { query: {} };
     params.query.groups = group.id;
     params.paginate = !!params.query.provider; // disable paginate
-    const users = this.app.service('users');
-    return users.find(params); // with provider
+    const svcUsers = this.app.service('users');
+    return svcUsers.find(params); // with provider
   }
 
   create(data, params) {

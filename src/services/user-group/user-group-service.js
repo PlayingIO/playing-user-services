@@ -23,9 +23,9 @@ class UserGroupService {
   find(params) {
     params = Object.assign({ query: {} }, params);
 
-    const users = this.app.service('users');
-    const groups = this.app.service('groups');
-    const roles = this.app.service('roles');
+    const svcUsers = this.app.service('users');
+    const svcGroups = this.app.service('groups');
+    const svcRoles = this.app.service('roles');
 
     const dissocTerm = term => params => {
       let query = fp.dissoc('type', params.query);
@@ -38,13 +38,13 @@ class UserGroupService {
 
     let promises = {};
     if (!params.query.type || params.query.type === 'user' || params.query.type === 'user-group') {
-      promises.latestUsers = users.find(dissocTerm('username')(params));
+      promises.latestUsers = svcUsers.find(dissocTerm('username')(params));
     }
     if (!params.query.type || params.query.type === 'group' || params.query.type === 'user-group') {
-      promises.latestGroups = groups.find(dissocTerm('groupname')(params));
+      promises.latestGroups = svcGroups.find(dissocTerm('groupname')(params));
     }
     if (!params.query.type || params.query.type === 'role' || params.query.type === 'user-group') {
-      promises.latestRoles = roles.find(dissocTerm('rolename')(params));
+      promises.latestRoles = svcRoles.find(dissocTerm('rolename')(params));
     }
     return Promise.props(promises).then((results) => {
       const sortByCreatedAt = fp.sort((a, b) => moment(a.createdAt).diff(b.createdAt) * -1);
