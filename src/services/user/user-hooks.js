@@ -12,6 +12,11 @@ const accepts = {
   ],
 };
 
+// TODO discard password except self account
+const discardPassword = () => hook => {
+
+};
+
 module.exports = function(options = {}) {
   return {
     before: {
