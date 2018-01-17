@@ -1,6 +1,6 @@
 import { hooks as auth } from 'feathers-authentication';
 import local from 'feathers-authentication-local';
-import { iff, isProvider, discard, unless } from 'feathers-hooks-common';
+import { iff, isProvider, unless } from 'feathers-hooks-common';
 import { hooks } from 'mostly-feathers-mongoose';
 import UserEntity from '~/entities/user-entity';
 
@@ -54,7 +54,7 @@ module.exports = function(options = {}) {
     },
     after: {
       all: [
-        iff(isProvider('external'), discard('password')),
+        iff(isProvider('external'), hooks.discardPath('password')),
         hooks.populate('groups', { service: 'groups', fallThrough: ['headers'] }),
         hooks.presentEntity(UserEntity, options),
         hooks.responder()
