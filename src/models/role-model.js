@@ -6,10 +6,10 @@ import { plugins } from 'mostly-feathers-mongoose';
  * "roles" are assigned to either a group or a user to grant the permission.
  */
 const fields = {
-  rolename: { type: 'String', required: true, unique: true },
-  label: { type: 'String', required: true },
-  description: { type: 'String' },
-  acls: [{ type: 'String' }],
+  rolename: { type: String, required: true, unique: true },
+  label: { type: String, required: true },
+  description: { type: String },
+  acls: [{ type: String }],
 };
 
 export default function model (app, name) {
