@@ -26,12 +26,12 @@ const fields = {
   status: { type: Number, default: 0 },
   isAdministrator: { type: Boolean }, // admin account
 
-  alerts: { type: 'Mixed' },  // last read time of each kind of alerts
-                              // e.g. { <alertId>: new Date() }
+  alerts: { type: 'Mixed' },      // last read time of each kind of alerts
+                                  // e.g. { <alertId>: new Date() }
   devices: {
-    android: { type: Array },     // android
-    ios: { type: Array },         // iphone
-    web: { type: Array },         // web browser
+    android: { type: Array, default: undefined }, // android
+    ios: { type: Array, default: undefined },     // iphone
+    web: { type: Array, default: undefined },     // web browser
     last: { type: 'Mixed' },      // last device
     invited: { type: 'Mixed' },   // device being invitated
   },
