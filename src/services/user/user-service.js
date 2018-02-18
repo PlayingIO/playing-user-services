@@ -30,7 +30,7 @@ class UserService extends Service {
   _addGroup(id, data, params, original) {
     assert(data.group || data.groups, 'data.group not privided');
     const addGroups = fp.pipe(
-      fp.map(fp.toString),
+      fp.map(fp.prop('id')),
       fp.concat([data.group] || data.groups),
       fp.uniq
     );
@@ -41,7 +41,7 @@ class UserService extends Service {
   _removeGroup(id, data, params, original) {
     assert(data.group || data.groups, 'data.group not privided');
     const removeGroups = fp.pipe(
-      fp.map(fp.toString),
+      fp.map(fp.prop('id')),
       fp.reject(g => ([data.group] || data.groups).indexOf(g) > -1),
       fp.uniq
     );
