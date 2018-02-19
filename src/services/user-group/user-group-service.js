@@ -37,13 +37,14 @@ class UserGroupService {
     };
 
     let promises = {};
-    if (!params.query.type || params.query.type === 'user' || params.query.type === 'user-group') {
+    let type = params && fp.dotPath('query.type', params);
+    if (!type || type === 'user' || type === 'user-group') {
       promises.latestUsers = svcUsers.find(dissocTerm('username')(params));
     }
-    if (!params.query.type || params.query.type === 'group' || params.query.type === 'user-group') {
+    if (!type || type === 'group' || type === 'user-group') {
       promises.latestGroups = svcGroups.find(dissocTerm('groupname')(params));
     }
-    if (!params.query.type || params.query.type === 'role' || params.query.type === 'user-group') {
+    if (!type || type === 'role' || type === 'user-group') {
       promises.latestRoles = svcRoles.find(dissocTerm('rolename')(params));
     }
     return Promise.props(promises).then((results) => {
