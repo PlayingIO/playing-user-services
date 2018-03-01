@@ -29,24 +29,22 @@ class UserService extends Service {
 
   _addGroup(id, data, params, original) {
     assert(data.group || data.groups, 'data.group not privided');
-    const addGroups = fp.pipe(
-      fp.map(fp.prop('id')),
-      fp.concat([data.group] || data.groups),
-      fp.uniq
-    );
-    const groups = addGroups(original.groups || []);
-    return super.patch(id, { groups }, params);
+    const groups = data.groups || [data.group];
+    return super.patch(id, {
+      $addToSet: {
+        groups: { $each: groups }
+      }
+    }, params);
   }
 
   _removeGroup(id, data, params, original) {
     assert(data.group || data.groups, 'data.group not privided');
-    const removeGroups = fp.pipe(
-      fp.map(fp.prop('id')),
-      fp.reject(g => ([data.group] || data.groups).indexOf(g) > -1),
-      fp.uniq
-    );
-    const groups = removeGroups(original.groups || []);
-    return super.patch(id, { groups }, params);
+    const groups = data.groups || [data.group];
+    return super.patch(id, {
+      $pull: {
+        groups: { $in: groups }
+      }
+    }, params);
   }
 
   _changePassword(id, data, params, user) {
