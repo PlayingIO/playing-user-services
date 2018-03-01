@@ -7,8 +7,9 @@ const options = {
 };
 
 const role = {
-  role: { type: String, required: true },   // name of the role
-  permissions: { type: 'Mixed' },           // map of all permissions
+  _id: false,
+  role: { type: String },                   // name of the role
+  permits: { type: 'Mixed' },               // map of all permissions
 };
 
 /*
@@ -21,8 +22,7 @@ const fields = {
   label: { type: String, required: true },   // display label
   description: { type: String },             // brief description of the group
   image: contents.blob.schema,               // image which represents the group
-  roles: [role],                             // defines the roles present in each team
-  creatorRoles: [{ type: String }]
+  roles: [role]                              // defines the roles/permissions
 };
 
 export default function model (app, name) {
