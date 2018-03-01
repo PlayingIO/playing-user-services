@@ -1,6 +1,9 @@
 import { plugins } from 'mostly-feathers-mongoose';
 import random from 'mongoose-random';
-import timestamps from 'mongoose-timestamp';
+
+const options = {
+  timestamps: true
+};
 
 /*
  * A "user" belongs to some "groups"
@@ -47,8 +50,7 @@ const fields = {
 
 export default function model (app, name) {
   const mongoose = app.get('mongoose');
-  const schema = new mongoose.Schema(fields);
-  schema.plugin(timestamps);
+  const schema = new mongoose.Schema(fields, options);
   schema.plugin(random);
   schema.plugin(plugins.softDelete);
   return mongoose.model(name, schema);
