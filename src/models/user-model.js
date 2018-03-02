@@ -6,8 +6,7 @@ const options = {
 };
 
 /*
- * A "user" belongs to some "groups"
- * "roles" are assigned to a user to grant the permissions
+ * A "user" belongs to some "groups" with certain toles
  */
 const fields = {
   email: { type: String, unique: true, sparse: true },      // credential email

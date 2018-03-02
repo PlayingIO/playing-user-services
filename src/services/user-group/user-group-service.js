@@ -25,7 +25,6 @@ class UserGroupService {
 
     const svcUsers = this.app.service('users');
     const svcGroups = this.app.service('groups');
-    const svcRoles = this.app.service('roles');
 
     const dissocTerm = term => params => {
       let query = fp.dissoc('type', params.query);
@@ -44,16 +43,12 @@ class UserGroupService {
     if (!type || type === 'group' || type === 'user-group') {
       promises.latestGroups = svcGroups.find(dissocTerm('groupname')(params));
     }
-    if (!type || type === 'role' || type === 'user-group') {
-      promises.latestRoles = svcRoles.find(dissocTerm('rolename')(params));
-    }
     return Promise.props(promises).then((results) => {
       const sortByCreatedAt = fp.sort((a, b) => moment(a.createdAt).diff(b.createdAt) * -1);
       const dataOf = fp.propOr([], 'data');
       const data = [].concat(
         fp.propOr([], 'data', results.latestUsers),
-        fp.propOr([], 'data', results.latestGroups),
-        fp.propOr([], 'data', results.latestRoles)
+        fp.propOr([], 'data', results.latestGroups)
       );
       return sortByCreatedAt(data);
     });
@@ -68,13 +63,11 @@ class UserGroupService {
 
     const findUser = this.app.service('users').find(id, params);
     const findGroup = this.app.service('groups').find(id, params);
-    const findRole = this.app.service('roles').find(id, params);
 
-    return Promise.all([findUser, findGroup, findRole])
-      .then(([users, groups, roles]) => {
+    return Promise.all([findUser, findGroup])
+      .then(([users, groups]) => {
         if (users && users.length > 0) return users[0];
         if (groups && groups.length > 0) return groups[0];
-        if (roles && roles.length > 0) return roles[0];
         return null;
       });
   }

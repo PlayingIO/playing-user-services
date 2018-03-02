@@ -29,6 +29,7 @@ class UserService extends Service {
 
   _addGroup(id, data, params, original) {
     assert(data.group || data.groups, 'data.group not privided');
+    data.roles = data.roles || [];
     const groups = data.groups || [data.group];
     return super.patch(id, {
       $addToSet: {
