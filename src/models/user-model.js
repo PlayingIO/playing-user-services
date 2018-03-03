@@ -19,8 +19,8 @@ const fields = {
   avatar: { type: 'Mixed' },               // blob schema
 
   groups: [{                               // group/role pairs, each roles in one group represent by each pairs
-    group: { type: 'ObjectId' },           // group id
-    role: { type: 'String' }               // role in this group
+    group: { type: 'ObjectId', required: true },
+    role: { type: 'String' }
   }],
 
   city: { type: String },

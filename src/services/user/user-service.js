@@ -32,7 +32,7 @@ class UserService extends Service {
     assert(data.role, 'data.role is not provided');
     return super.patch(id, {
       $addToSet: {
-        groups: [{ group: data.group, role: data.role }]
+        groups: { group: data.group, role: data.role }
       }
     }, params);
   }

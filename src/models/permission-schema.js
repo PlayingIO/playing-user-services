@@ -11,7 +11,6 @@ const permission = {
  */
 const role = {
   role: { type: String, required: true },   // name of role
-  label: { type: String },                  // label of role
   description: { type: String },            // description of role
   permissions: [permission],                // group of permissions
 };
