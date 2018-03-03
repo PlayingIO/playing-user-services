@@ -22,15 +22,28 @@ class UserService extends Service {
   }
 
   _invite(id, data, params) {
-    assert(data.user, 'data.user not privided');
+    assert(data.user, 'data.user is not privided');
     // TODO invite user
     return data.user;
   }
 
   _addGroup(id, data, params, original) {
-    assert(data.group || data.groups, 'data.group not privided');
-    data.roles = data.roles || [];
-    const groups = data.groups || [data.group];
+    assert(data.group, 'data.group is not privided');
+    assert(data.role, 'data.role is not provided');
+    return super.patch(id, {
+      $addToSet: {
+        groups: [{ group: data.group, role: data.role }]
+      }
+    }, params);
+  }
+
+  _addGroups(id, data, params, original) {
+    assert(fp.is(Array, data), 'data should be an array of group/role');
+    const groups = fp.map(pair => {
+      assert(pair.group, 'array.group is not privided');
+      assert(pair.role, 'array.role is not provided');
+      return { group: pair.group, role: pair.role };
+    }, data);
     return super.patch(id, {
       $addToSet: {
         groups: { $each: groups }
@@ -39,11 +52,25 @@ class UserService extends Service {
   }
 
   _removeGroup(id, data, params, original) {
-    assert(data.group || data.groups, 'data.group not privided');
-    const groups = data.groups || [data.group];
+    assert(data.group, 'data.group is not privided');
+    assert(data.role, 'data.role is not privided');
     return super.patch(id, {
       $pull: {
-        groups: { $in: groups }
+        groups: { group: data.group, role: data.role }
+      }
+    }, params);
+  }
+
+  _removeGroups(id, data, params, original) {
+    assert(fp.is(Array, data), 'data should be an array of group/role');
+    const groups = fp.map(pair => {
+      assert(pair.group, 'array.group is not privided');
+      assert(pair.role, 'array.role is not provided');
+      return { group: pair.group, role: pair.role };
+    }, data);
+    return super.patch(id, {
+      $pullAll: {
+        groups: groups
       }
     }, params);
   }
