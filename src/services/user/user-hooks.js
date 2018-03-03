@@ -55,7 +55,7 @@ module.exports = function(options = {}) {
     after: {
       all: [
         iff(isProvider('external'), hooks.discardPath('password')),
-        hooks.populate('groups', { service: 'groups', fallThrough: ['headers'] }),
+        hooks.populate('groups.group', { service: 'groups', fallThrough: ['headers'] }),
         hooks.presentEntity(UserEntity, options),
         hooks.responder()
       ]
