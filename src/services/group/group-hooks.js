@@ -12,7 +12,7 @@ module.exports = function(options = {}) {
     },
     after: {
       all: [
-        hooks.assoc('users', { service: 'users', field: 'groups' }),
+        hooks.assoc('users', { service: 'users', field: 'groups', op: '$elemMatch' }),
         hooks.presentEntity(GroupEntity, options),
         hooks.responder()
       ]
