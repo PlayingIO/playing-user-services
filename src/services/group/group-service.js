@@ -41,7 +41,9 @@ class GroupService extends Service {
 
   _users(id, data, params, orignal) {
     params = params || { query: {} };
-    params.query.groups = { group: orignal.id };
+    params.query.groups = {
+      $elemMatch: { group: orignal.id }
+    };
     const svcUsers = this.app.service('users');
     return svcUsers.find(params);
   }
