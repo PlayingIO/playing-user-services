@@ -32,19 +32,19 @@ module.exports = function(options = {}) {
         hooks.idAsCurrentUser('me')
       ],
       create: [
-        hooks.depopulate('groups'),
+        hooks.depopulate('groups.group'),
         local.hooks.hashPassword()
       ],
       update: [
         auth.authenticate('jwt'),
         hooks.idAsCurrentUser('me'),
-        hooks.depopulate('groups'),
+        hooks.depopulate('groups.group'),
         unless(hooks.isAction('changePassword'), local.hooks.hashPassword())
       ],
       patch: [
         auth.authenticate('jwt'),
         hooks.idAsCurrentUser('me'),
-        hooks.depopulate('groups'),
+        hooks.depopulate('groups.group'),
         unless(hooks.isAction('changePassword'), local.hooks.hashPassword())
       ],
       remove: [
