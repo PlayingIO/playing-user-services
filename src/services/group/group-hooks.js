@@ -7,6 +7,12 @@ module.exports = function(options = {}) {
     before: {
       all: [
         auth.authenticate('jwt')
+      ],
+      update: [
+        hooks.discardFields('id', 'createdAt', 'updatedAt', 'destroyedAt')
+      ],
+      patch: [
+        hooks.discardFields('id', 'createdAt', 'updatedAt', 'destroyedAt')
       ]
     },
     after: {

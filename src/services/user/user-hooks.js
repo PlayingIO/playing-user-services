@@ -37,13 +37,13 @@ module.exports = function(options = {}) {
       update: [
         auth.authenticate('jwt'),
         hooks.idAsCurrentUser('me'),
-        hooks.discardPath('id', 'groups', 'createdAt', 'updatedAt', 'destroyedAt'),
+        hooks.discardFields('id', 'groups', 'createdAt', 'updatedAt', 'destroyedAt'),
         unless(hooks.isAction('changePassword'), local.hooks.hashPassword())
       ],
       patch: [
         auth.authenticate('jwt'),
         hooks.idAsCurrentUser('me'),
-        hooks.discardPath('id', 'groups', 'createdAt', 'updatedAt', 'destroyedAt'),
+        hooks.discardFields('id', 'groups', 'createdAt', 'updatedAt', 'destroyedAt'),
         unless(hooks.isAction('changePassword'), local.hooks.hashPassword())
       ],
       remove: [
@@ -53,7 +53,7 @@ module.exports = function(options = {}) {
     },
     after: {
       all: [
-        iff(isProvider('external'), hooks.discardPath('password')),
+        iff(isProvider('external'), hooks.discardFields('password')),
         hooks.populate('groups.group', { service: 'groups', fallThrough: ['headers'] }),
         hooks.presentEntity(UserEntity, options),
         hooks.responder()
