@@ -21,6 +21,18 @@ class UserService extends Service {
     this.hooks(defaultHooks(this.options));
   }
 
+  create(data, params) {
+    return super.create(data, params);
+  }
+
+  update(id, data, params) {
+    return super.update(id, data, params);
+  }
+
+  patch(id, data, params) {
+    return super.patch(id, data, params);
+  }
+
   _invite(id, data, params) {
     assert(data.user, 'data.user is not privided');
     // TODO invite user
