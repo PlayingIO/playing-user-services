@@ -1,8 +1,11 @@
 const permission = {
   _id: false,
-  action: { type: 'String' },                  // action
-  subject: { type: 'String' },                 // resource subject
+  action: { type: String },                    // action
+  subject: { type: String },                   // resource subject (resource:id)
   inverted: { type: Boolean, default: false }, // cannot
+  begin: { type: Date },                       // start of time frame
+  end: { type: Date },                         // end of time frame
+  creator: { type: 'ObjectId' },               // granted by
   conditions: { type: 'Mixed' },               // conditions
 };
 
