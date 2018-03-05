@@ -9,5 +9,5 @@ modelFiles.forEach(file => {
   module.exports[name] = require(file);
 });
 
-module.exports.permission = permission;
-module.exports.role = role;
+module.exports.permission = { schema: permission };
+module.exports.role = { schema: role };
