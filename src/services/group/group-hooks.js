@@ -18,6 +18,9 @@ module.exports = function(options = {}) {
     after: {
       all: [
         hooks.assoc('users', { service: 'users', field: 'groups', elemMatch: 'group' }),
+        hooks.populate('roles.permissions.subject'),
+        hooks.populate('roles.permissions.creator', { service: 'users' }),
+        hooks.populate('owner', { service: 'users' }),
         hooks.presentEntity(GroupEntity, options),
         hooks.responder()
       ]
