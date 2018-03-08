@@ -1,18 +1,17 @@
 import { plugins } from 'mostly-feathers-mongoose';
-import { models as users } from 'playing-user-services';
+import { permission } from './permission-schema';
 
 const options = {
   timestamps: true
 };
 
 /*
- * user's permissions list of documents
+ * user's permissions list of subjects
  */
 const fields = {
-  document: { type: 'ObjectId', required: true }, // document id
-  type: { type: String, required: true },         // document type
+  subject: { type: 'String', required: true },    // subject id with type (service, document, group, etc)
   user: { type: 'ObjectId', required: true },     // user/group id
-  permission: users.permission.schema             // permission
+  permission: permission                          // permission
 };
 
 export default function model (app, name) {
