@@ -21,6 +21,19 @@ class PermissionService extends Service {
     super.setup(app);
     this.hooks(defaultHooks(this.options));
   }
+
+  create(data, params) {
+    assert(data.actions, 'data.actions not provided.');
+    assert(data.subject, 'data.subject not provided.');
+    assert(data.user, 'data.user not provided.');
+    data.actions = fp.is(Array, data.actions)? data.actions : [data.actions];
+
+    return super._upsert(null, data, { query: {
+      actions: { $all: data.actions },
+      subject: data.subject,
+      user: data.user
+    }});
+  }
 }
 
 export default function init(app, options, hooks) {

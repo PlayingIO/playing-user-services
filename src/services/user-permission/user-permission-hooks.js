@@ -1,3 +1,4 @@
+import { disallow } from 'feathers-hooks-common';
 import { hooks as auth } from 'feathers-authentication';
 import { hooks } from 'mostly-feathers-mongoose';
 import PermissionEntity from '~/entities/user-permission-entity';
@@ -8,11 +9,19 @@ module.exports = function(options = {}) {
       all: [
         auth.authenticate('jwt')
       ],
+      create: [
+        disallow('external'),
+      ],
       update: [
+        disallow('external'),
         hooks.discardFields('id', 'createdAt', 'updatedAt')
       ],
       patch: [
+        disallow('external'),
         hooks.discardFields('id', 'createdAt', 'updatedAt')
+      ],
+      remove: [
+        disallow('external')
       ]
     },
     after: {
