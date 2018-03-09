@@ -17,6 +17,9 @@ module.exports = function(options = {}) {
     },
     after: {
       all: [
+        hooks.populate('creator', { service: 'users' }),
+        hooks.populate('subject', { keepOrig: true }), // typed id
+        hooks.populate('user', { service: 'user-groups' }),
         hooks.presentEntity(PermissionEntity, options),
         hooks.responder()
       ]
