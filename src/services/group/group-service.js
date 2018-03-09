@@ -18,6 +18,19 @@ class GroupService extends Service {
   setup(app) {
     super.setup(app);
     this.hooks(defaultHooks(this.options));
+
+    // administrator group
+    this.action('first').find({ query: {
+      groupname: 'administrators'
+    }}).then(result => {
+      if (!result) {
+        return this.create({
+          groupname: 'administrators',
+          label: 'Administrators Group',
+          description: 'Group of users with administrative rights'
+        });
+      }
+    }).catch(console.error);
   }
 
   create(data, params) {

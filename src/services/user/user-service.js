@@ -19,6 +19,21 @@ class UserService extends Service {
   setup(app) {
     super.setup(app);
     this.hooks(defaultHooks(this.options));
+
+    // administrator account
+    this.action('first').find({ query: {
+      username: 'admin'
+    }}).then(result => {
+      if (!result) {
+        return this.create({
+          username: 'admin',
+          password: 'password',
+          nickname: 'Admin',
+          email: 'admin@playingio.com',
+          company: 'PlayingIO'
+        });
+      }
+    }).catch(console.error);
   }
 
   create(data, params) {
