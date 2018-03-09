@@ -2,8 +2,6 @@ import mongoose from 'mongoose';
 import { plugins } from 'mostly-feathers-mongoose';
 import { models as contents } from 'playing-content-services';
 
-import { role } from './permission-schema';
-
 const options = {
   timestamps: true
 };
@@ -17,7 +15,7 @@ const fields = {
   label: { type: String, required: true },   // display label
   description: { type: String },             // brief description of the group
   image: contents.blob.schema,               // image which represents the group
-  roles: [role],                             // defines the roles/permissions
+  roles: [{ type: String }],                 // defines the roles
   owner: { type: 'ObjectId' },               // owner who created the group
 };
 

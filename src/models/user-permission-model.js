@@ -1,5 +1,4 @@
 import { plugins } from 'mostly-feathers-mongoose';
-import { permission } from './permission-schema';
 
 const options = {
   timestamps: true
@@ -9,9 +8,15 @@ const options = {
  * user's permissions list of subjects
  */
 const fields = {
-  subject: { type: 'String', required: true },    // subject id with type (service, document, group, etc)
-  user: { type: 'ObjectId', required: true },     // user/group id
-  permission: permission                          // permission
+  actions: [{ type: String, required: true }],  // actions
+  alias: [{ type: String }],                    // alias of action
+  subject: { type: 'String' },                  // subject with optional id (service, document, group, etc)
+  user: { type: 'String' },                     // user/group/thirdparty id
+  inverted: { type: Boolean, default: false },  // cannot
+  creator: { type: 'ObjectId' },                // granted by
+  begin: { type: Date },                        // start of time frame
+  end: { type: Date },                          // end of time frame
+  conditions: { type: 'Mixed' },                // conditions
 };
 
 export default function model (app, name) {
