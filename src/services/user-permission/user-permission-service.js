@@ -31,7 +31,8 @@ class PermissionService extends Service {
     return super._upsert(null, data, { query: {
       actions: { $all: data.actions },
       subject: data.subject,
-      user: data.user
+      user: data.user,
+      conditions: data.conditions || {}
     }});
   }
 }

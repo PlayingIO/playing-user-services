@@ -12,6 +12,7 @@ const fields = {
   alias: [{ type: String }],                    // alias of action
   subject: { type: 'String', required: true },  // subject with optional id (service, document, group, etc)
   user: { type: 'String', required: true },     // user/group/thirdparty id
+  role: { type: 'String' },                     // role of group
   inverted: { type: Boolean, default: false },  // cannot
   creator: { type: 'ObjectId' },                // granted by
   begin: { type: Date },                        // start of time frame
@@ -22,7 +23,7 @@ const fields = {
 export default function model (app, name) {
   const mongoose = app.get('mongoose');
   const schema = new mongoose.Schema(fields, options);
-  schema.index({ actions: 1, subject: 1, user: 1 });
+  schema.index({ actions: 1, subject: 1, user: 1, role: 1 }, { unique: true });
   return mongoose.model(name, schema);
 }
 
