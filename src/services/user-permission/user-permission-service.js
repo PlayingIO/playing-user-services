@@ -32,8 +32,26 @@ class PermissionService extends Service {
       actions: { $all: data.actions },
       subject: data.subject,
       user: data.user,
+      role: data.role,
       conditions: data.conditions || {}
     }});
+  }
+
+  remove(id, params) {
+    assert(params.query.actions, 'data.actions not provided.');
+    assert(params.query.subject, 'data.subject not provided.');
+    assert(params.query.user, 'data.user not provided.');
+    params.query.actions = fp.is(Array, params.query.actions)? params.query.actions : [params.query.actions];
+
+    return super.remove(null, {
+      query: {
+        actions: { $all: params.query.actions },
+        subject: params.query.subject,
+        user: params.query.user,
+        role: params.query.role
+      },
+      $multi: true
+    });
   }
 }
 
