@@ -1,4 +1,4 @@
-import moment from 'moment';
+import dateFn from 'date-fns';
 import { Service, createService } from 'mostly-feathers-mongoose';
 import fp from 'mostly-func';
 
@@ -44,7 +44,7 @@ class UserGroupService {
       promises.latestGroups = svcGroups.find(dissocTerm('groupname')(params));
     }
     return Promise.props(promises).then((results) => {
-      const sortByCreatedAt = fp.sort((a, b) => moment(a.createdAt).diff(b.createdAt) * -1);
+      const sortByCreatedAt = fp.sort((a, b) => dateFn.compareDesc(a.createdAt, b.createdAt));
       const dataOf = fp.propOr([], 'data');
       const data = [].concat(
         fp.propOr([], 'data', results.latestUsers),
