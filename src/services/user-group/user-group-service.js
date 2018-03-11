@@ -45,10 +45,9 @@ class UserGroupService {
     }
     return Promise.props(promises).then((results) => {
       const sortByCreatedAt = fp.sort((a, b) => dateFn.compareDesc(a.createdAt, b.createdAt));
-      const dataOf = fp.propOr([], 'data');
-      const data = [].concat(
-        fp.propOr([], 'data', results.latestUsers),
-        fp.propOr([], 'data', results.latestGroups)
+      const data = fp.concat(
+        results.latestUsers && results.latestUsers.data || results.latestUsers || [],
+        results.latestGroups && results.latestGroups.data || results.latestGroups || []
       );
       return sortByCreatedAt(data);
     });
