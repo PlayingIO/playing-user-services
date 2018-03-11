@@ -12,9 +12,10 @@ const accepts = {
   ],
 };
 
-// TODO discard password except self account
-const discardPassword = () => hook => {
-
+// discard password except internal call and with params.password specified
+const discardPassword = hook => {
+  const params = hook.params || {};
+  return !(params.password && !params.provider);
 };
 
 module.exports = function(options = {}) {
@@ -53,7 +54,7 @@ module.exports = function(options = {}) {
     },
     after: {
       all: [
-        iff(isProvider('external'), hooks.discardFields('password')),
+        iff(discardPassword, hooks.discardFields('password')),
         hooks.populate('groups.group', { service: 'groups', fallThrough: ['headers'] }),
         hooks.presentEntity(UserEntity, options),
         hooks.responder()
