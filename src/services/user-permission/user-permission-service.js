@@ -38,18 +38,26 @@ class PermissionService extends Service {
   }
 
   remove(id, params) {
-    assert(params.query.subject, 'data.subject not provided.');
-    if (fp.is(Array, params.query.actions)) {
-      params.query.actions = [params.query.actions];
+    if (id) {
+      return super.remove(id, params);
+    } else {
+      params = fp.assign({ query: {} }, params);
+      assert(params.query.actions, 'params.query.actions is not provided.');
+      assert(params.query.subject, 'params.query.subject is not provided.');
+      if (!fp.is(Array, params.query.actions)) {
+        params.query.actions = [params.query.actions];
+      }
+
+      let query = { 
+        actions: { $all: params.query.actions },
+        subject: params.query.subject
+      };
+      if (params.query.user) query.user = params.query.user;
+      if (params.query.role) query.role = params.query.role;
+      const multi = fp.isNil(params.$multi)? true : params.$multi;
+
+      return super.remove(null, { query, $multi: multi });
     }
-
-    let query = { subject: params.query.subject };
-    if (params.query.actions) query.actions = { $all: params.query.actions };
-    if (params.query.user) query.user = params.query.user;
-    if (params.query.role) query.role = params.query.role;
-    const multi = fp.isNil(params.$multi)? true : params.$multi;
-
-    return super.remove(null, { query, $multi: multi });
   }
 }
 
