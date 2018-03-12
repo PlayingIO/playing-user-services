@@ -44,9 +44,9 @@ class PermissionService extends Service {
     }
 
     let query = { subject: params.query.subject };
-    if (params.query.actions) query.actions = params.query.actions;
-    if (params.query.user) query.actions = params.query.user;
-    if (params.query.role) query.actions = params.query.role;
+    if (params.query.actions) query.actions = { $all: params.query.actions };
+    if (params.query.user) query.user = params.query.user;
+    if (params.query.role) query.role = params.query.role;
     const multi = fp.isNil(params.$multi)? true : params.$multi;
 
     return super.remove(null, { query, $multi: multi });
