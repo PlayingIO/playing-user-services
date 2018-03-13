@@ -56,6 +56,7 @@ module.exports = function(options = {}) {
       all: [
         iff(discardPassword, hooks.discardFields('password')),
         hooks.populate('groups.group', { service: 'groups', fallThrough: ['headers'] }),
+        hooks.assoc('permissions', { service: 'user-permissions', field: 'user' }),
         hooks.presentEntity(UserEntity, options),
         hooks.responder()
       ]
