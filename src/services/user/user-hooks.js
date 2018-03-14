@@ -1,8 +1,10 @@
-import { hooks as auth } from 'feathers-authentication';
 import local from 'feathers-authentication-local';
 import { iff, isProvider, unless } from 'feathers-hooks-common';
 import { hooks } from 'mostly-feathers-mongoose';
+import { cacheMap } from 'mostly-utils-common';
 import UserEntity from '~/entities/user-entity';
+
+const cache = cacheMap({ max: 100 });
 
 const accepts = {
   changePassword: [
@@ -22,34 +24,39 @@ module.exports = function(options = {}) {
   return {
     before: {
       all: [
-        hooks.validation(accepts),
+        hooks.validation(accepts)
       ],
       find: [
-        auth.authenticate('jwt'),
-        hooks.idAsCurrentUser('me')
+        hooks.authenticate('jwt'),
+        hooks.idAsCurrentUser('me'),
+        hooks.cache(cache)
       ],
       get: [
-        auth.authenticate('jwt'),
-        hooks.idAsCurrentUser('me')
+        hooks.authenticate('jwt'),
+        hooks.idAsCurrentUser('me'),
+        hooks.cache(cache)
       ],
       create: [
         local.hooks.hashPassword()
       ],
       update: [
-        auth.authenticate('jwt'),
+        hooks.authenticate('jwt'),
         hooks.idAsCurrentUser('me'),
+        hooks.cache(cache),
         hooks.discardFields('id', 'groups', 'createdAt', 'updatedAt', 'destroyedAt'),
         unless(hooks.isAction('changePassword'), local.hooks.hashPassword())
       ],
       patch: [
-        auth.authenticate('jwt'),
+        hooks.authenticate('jwt'),
         hooks.idAsCurrentUser('me'),
+        hooks.cache(cache),
         hooks.discardFields('id', 'groups', 'createdAt', 'updatedAt', 'destroyedAt'),
         unless(hooks.isAction('changePassword'), local.hooks.hashPassword())
       ],
       remove: [
-        auth.authenticate('jwt'),
-        hooks.idAsCurrentUser('me')
+        hooks.authenticate('jwt'),
+        hooks.idAsCurrentUser('me'),
+        hooks.cache(cache)
       ]
     },
     after: {
@@ -57,6 +64,7 @@ module.exports = function(options = {}) {
         iff(discardPassword, hooks.discardFields('password')),
         hooks.populate('groups.group', { service: 'groups', fallThrough: ['headers'] }),
         hooks.assoc('permissions', { service: 'user-permissions', field: 'user' }),
+        hooks.cache(cache),
         hooks.presentEntity(UserEntity, options),
         hooks.responder()
       ]
