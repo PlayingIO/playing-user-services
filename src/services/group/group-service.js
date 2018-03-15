@@ -53,7 +53,7 @@ class GroupService extends Service {
   }
 
   _users(id, data, params, orignal) {
-    params = params || { query: {} };
+    params = fp.assign({ query: {} }, params);
     params.query.groups = {
       $elemMatch: { group: orignal.id }
     };
