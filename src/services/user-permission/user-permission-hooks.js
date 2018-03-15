@@ -1,16 +1,14 @@
 import { disallow } from 'feathers-hooks-common';
 import { hooks } from 'mostly-feathers-mongoose';
-import { cacheMap } from 'mostly-utils-common';
+import { cache } from 'mostly-feathers-cache';
 import PermissionEntity from '~/entities/user-permission-entity';
-
-const cache = cacheMap({ max: 100 });
 
 module.exports = function(options = {}) {
   return {
     before: {
       all: [
         hooks.authenticate('jwt', options),
-        hooks.cache(cache)
+        cache(options.cache)
       ],
       create: [
         disallow('external'),
@@ -32,7 +30,7 @@ module.exports = function(options = {}) {
         hooks.populate('creator', { service: 'users' }),
         hooks.populate('subject', { keepOrig: true }), // typed id
         hooks.populate('user', { service: 'user-groups' }),
-        hooks.cache(cache),
+        cache(options.cache),
         hooks.presentEntity(PermissionEntity, options),
         hooks.responder()
       ]

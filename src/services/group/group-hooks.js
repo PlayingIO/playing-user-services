@@ -1,15 +1,13 @@
 import { hooks } from 'mostly-feathers-mongoose';
-import { cacheMap } from 'mostly-utils-common';
+import { cache } from 'mostly-feathers-cache';
 import GroupEntity from '~/entities/group-entity';
-
-const cache = cacheMap({ max: 100 });
 
 module.exports = function(options = {}) {
   return {
     before: {
       all: [
         hooks.authenticate('jwt', options),
-        hooks.cache(cache)
+        cache(options.cache)
       ],
       update: [
         hooks.discardFields('id', 'createdAt', 'updatedAt', 'destroyedAt')
@@ -23,7 +21,7 @@ module.exports = function(options = {}) {
         hooks.assoc('users', { service: 'users', field: 'groups', elemMatch: 'group' }),
         hooks.assoc('permissions', { service: 'user-permissions', field: 'user' }),
         hooks.populate('owner', { service: 'users' }),
-        hooks.cache(cache),
+        cache(options.cache),
         hooks.presentEntity(GroupEntity, options),
         hooks.responder()
       ]
