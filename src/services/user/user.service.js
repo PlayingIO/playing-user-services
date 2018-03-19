@@ -3,8 +3,8 @@ import bcrypt from 'bcryptjs';
 import { Service, createService } from 'mostly-feathers-mongoose';
 import fp from 'mostly-func';
 
-import UserModel from '~/models/user-model';
-import defaultHooks from './user-hooks';
+import UserModel from '~/models/user.model';
+import defaultHooks from './user.hooks';
 
 const defaultOptions = {
   name: 'users'

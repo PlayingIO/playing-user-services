@@ -2,8 +2,8 @@ import assert from 'assert';
 import { Service, createService } from 'mostly-feathers-mongoose';
 import fp from 'mostly-func';
 
-import GroupModel from '~/models/group-model';
-import defaultHooks from './group-hooks';
+import GroupModel from '~/models/group.model';
+import defaultHooks from './group.hooks';
 
 const defaultOptions = {
   name: 'groups'

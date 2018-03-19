@@ -2,8 +2,9 @@ import assert from 'assert';
 import makeDebug from 'debug';
 import { Service, createService } from 'mostly-feathers-mongoose';
 import fp from 'mostly-func';
-import LeaderboardModel from '~/models/user-permission-model';
-import defaultHooks from './user-permission-hooks';
+
+import LeaderboardModel from '~/models/user-permission.model';
+import defaultHooks from './user-permission.hooks';
 
 const debug = makeDebug('playing:interaction-services:user-permissions');
 
