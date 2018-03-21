@@ -10,12 +10,12 @@ const defaultOptions = {
 };
 
 class GroupService extends Service {
-  constructor(options) {
+  constructor (options) {
     options = Object.assign({}, defaultOptions, options);
     super(options);
   }
 
-  setup(app) {
+  setup (app) {
     super.setup(app);
     this.hooks(defaultHooks(this.options));
 
@@ -33,26 +33,26 @@ class GroupService extends Service {
     }).catch(console.error);
   }
 
-  create(data, params) {
+  create (data, params) {
     return super.create(data, params);
   }
 
-  update(id, data, params) {
+  update (id, data, params) {
     return super.update(id, data, params);
   }
 
-  patch(id, data, params) {
+  patch (id, data, params) {
     return super.patch(id, data, params);
   }
 
   // nested groups
-  _groups(id, data, params, orignal) {
+  _groups (id, data, params, orignal) {
     params.query = params.query || {};
     params.query.parent = orignal.id;
     return this.find(params);
   }
 
-  _users(id, data, params, orignal) {
+  _users (id, data, params, orignal) {
     params = fp.assign({ query: {} }, params);
     params.query.groups = {
       $elemMatch: { group: orignal.id }
@@ -62,7 +62,7 @@ class GroupService extends Service {
   }
 }
 
-export default function init(app, options, hooks) {
+export default function init (app, options, hooks) {
   options = Object.assign({ ModelName: 'group' }, options);
   return createService(app, GroupService, GroupModel, options);
 }

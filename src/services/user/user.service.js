@@ -11,21 +11,21 @@ const defaultOptions = {
 };
 
 class UserService extends Service {
-  constructor(options) {
+  constructor (options) {
     options = Object.assign({}, defaultOptions, options);
     super(options);
   }
 
-  setup(app) {
-    super.setup(app);
-    this.hooks(defaultHooks(this.options));
+  setup (app) {
+    super.setup (app);
+    this.hooks (defaultHooks (this.options));
 
     // administrator account
-    this.action('first').find({ query: {
+    this.action ('first') .find ({ query: {
       username: 'admin'
-    }}).then(result => {
+    }}) .then (result => {
       if (!result) {
-        return this.create({
+        return this.create ({
           username: 'admin',
           password: 'password',
           nickname: 'Admin',
@@ -33,28 +33,32 @@ class UserService extends Service {
           company: 'PlayingIO'
         });
       }
-    }).catch(console.error);
+    }) .catch (console.error);
   }
 
-  create(data, params) {
-    return super.create(data, params);
+  create (data, params) {
+    return super.create (data, params);
   }
 
-  update(id, data, params) {
+  get (id, params) {
+    
+  }
+
+  update (id, data, params) {
     return super.update(id, data, params);
   }
 
-  patch(id, data, params) {
+  patch (id, data, params) {
     return super.patch(id, data, params);
   }
 
-  _invite(id, data, params) {
+  _invite (id, data, params) {
     assert(data.user, 'data.user is not privided');
     // TODO invite user
     return data.user;
   }
 
-  _addGroup(id, data, params, original) {
+  _addGroup (id, data, params, original) {
     assert(data.group, 'data.group is not privided');
     assert(data.role, 'data.role is not provided');
     return super.patch(id, {
@@ -64,7 +68,7 @@ class UserService extends Service {
     }, params);
   }
 
-  _addGroups(id, data, params, original) {
+  _addGroups (id, data, params, original) {
     assert(fp.is(Array, data), 'data should be an array of group/role');
     const groups = fp.map(pair => {
       assert(pair.group, 'array.group is not privided');
@@ -78,7 +82,7 @@ class UserService extends Service {
     }, params);
   }
 
-  _removeGroup(id, data, params, original) {
+  _removeGroup (id, data, params, original) {
     assert(data.group, 'data.group is not privided');
     assert(data.role, 'data.role is not privided');
     return super.patch(id, {
@@ -88,7 +92,7 @@ class UserService extends Service {
     }, params);
   }
 
-  _removeGroups(id, data, params, original) {
+  _removeGroups (id, data, params, original) {
     assert(fp.is(Array, data), 'data should be an array of group/role');
     const groups = fp.map(pair => {
       assert(pair.group, 'array.group is not privided');
@@ -102,13 +106,13 @@ class UserService extends Service {
     }, params);
   }
 
-  _changePassword(id, data, params, user) {
+  _changePassword (id, data, params, user) {
     assert(bcrypt.compareSync(data.password, user.password), 'Old password incorrect');
     return this.patch(id, { password: data.passwordNew }, params);
   }
 }
 
-export default function init(app, options, hooks) {
+export default function init (app, options, hooks) {
   options = Object.assign({ ModelName: 'user' }, options);
   return createService(app, UserService, UserModel, options);
 }

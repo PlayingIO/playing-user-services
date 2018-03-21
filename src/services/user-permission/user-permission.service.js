@@ -13,17 +13,17 @@ const defaultOptions = {
 };
 
 class PermissionService extends Service {
-  constructor(options) {
+  constructor (options) {
     options = Object.assign({}, defaultOptions, options);
     super(options);
   }
 
-  setup(app) {
+  setup (app) {
     super.setup(app);
     this.hooks(defaultHooks(this.options));
   }
 
-  create(data, params) {
+  create (data, params) {
     assert(data.actions, 'data.actions not provided.');
     assert(data.subject, 'data.subject not provided.');
     assert(data.user, 'data.user not provided.');
@@ -38,7 +38,7 @@ class PermissionService extends Service {
     }});
   }
 
-  remove(id, params) {
+  remove (id, params) {
     if (id) {
       return super.remove(id, params);
     } else {
@@ -62,7 +62,7 @@ class PermissionService extends Service {
   }
 }
 
-export default function init(app, options, hooks) {
+export default function init (app, options, hooks) {
   options = Object.assign({ ModelName: 'user-permission' }, options);
   return createService(app, PermissionService, LeaderboardModel, options);
 }

@@ -10,17 +10,17 @@ const defaultOptions = {
 };
 
 class UserGroupService {
-  constructor(options) {
+  constructor (options) {
     this.options = Object.assign({}, defaultOptions, options);
   }
 
-  setup(app) {
+  setup (app) {
     this.app = app;
     this.hooks(defaultHooks(this.options));
   }
 
   // latest users & groups or search by term
-  find(params) {
+  find (params) {
     params = Object.assign({ query: {} }, params);
 
     const svcUsers = this.app.service('users');
@@ -53,7 +53,7 @@ class UserGroupService {
     });
   }
 
-  get(id, params) {
+  get (id, params) {
     params = Object.assign({ query: {} }, params);
 
     params.query.id = id;
@@ -72,7 +72,7 @@ class UserGroupService {
   }
 }
 
-export default function init(app, options, hooks) {
+export default function init (app, options, hooks) {
   return new UserGroupService(options);
 }
 
