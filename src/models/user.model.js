@@ -15,7 +15,7 @@ const fields = {
   nickname: { type: String },              // display name
   firstName: { type: String },             // real name
   lastName: { type: String },              // real name
-  password: { type: String, required: true },
+  password: { type: String, required: true, select: false },
   avatar: { type: 'Mixed' },               // blob schema
 
   groups: [{                               // group/role pairs, each roles in one group represent by each pairs

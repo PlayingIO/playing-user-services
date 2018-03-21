@@ -1,6 +1,6 @@
 import assert from 'assert';
 import bcrypt from 'bcryptjs';
-import { Service, createService } from 'mostly-feathers-mongoose';
+import { Service, helpers, createService } from 'mostly-feathers-mongoose';
 import fp from 'mostly-func';
 
 import UserModel from '~/models/user.model';
@@ -40,8 +40,20 @@ class UserService extends Service {
     return super.create (data, params);
   }
 
+  find (params) {
+    params = fp.assign({ query: {} }, params);
+    if (params.password === true) {
+      params.query.$select = helpers.addToSelect(params.query.$select || [], 'password');
+    }
+    return super.find(params);
+  }
+
   get (id, params) {
-    
+    params = fp.assign({ query: {} }, params);
+    if (params.password === true) {
+      params.query.$select = helpers.addToSelect(params.query.$select || [], 'password');
+    }
+    return super.get(id, params);
   }
 
   update (id, data, params) {
