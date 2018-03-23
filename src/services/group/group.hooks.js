@@ -3,7 +3,7 @@ import { cache } from 'mostly-feathers-cache';
 
 import GroupEntity from '~/entities/group.entity';
 
-module.exports = function (options = {}) {
+export default function (options = {}) {
   return {
     before: {
       all: [

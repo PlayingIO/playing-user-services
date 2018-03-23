@@ -1,7 +1,7 @@
 import { disallow } from 'feathers-hooks-common';
 import { hooks } from 'mostly-feathers-mongoose';
 
-module.exports = function (options = {}) {
+export default function (options = {}) {
   return {
     before: {
       all: [
