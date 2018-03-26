@@ -64,7 +64,7 @@ export default function (options = {}) {
         hooks.populate('groups.group', { service: 'groups', fallThrough: ['headers'] }),
         hooks.assoc('permissions', { service: 'user-permissions', field: 'user' }),
         cache(options.cache),
-        hooks.presentEntity(UserEntity, options),
+        hooks.presentEntity(UserEntity, options.entities),
         hooks.responder()
       ]
     }

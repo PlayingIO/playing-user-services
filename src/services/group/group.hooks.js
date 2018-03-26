@@ -23,7 +23,7 @@ export default function (options = {}) {
         hooks.assoc('permissions', { service: 'user-permissions', field: 'user' }),
         hooks.populate('owner', { service: 'users' }),
         cache(options.cache),
-        hooks.presentEntity(GroupEntity, options),
+        hooks.presentEntity(GroupEntity, options.entities),
         hooks.responder()
       ]
     }

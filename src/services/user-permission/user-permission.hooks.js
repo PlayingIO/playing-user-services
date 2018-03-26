@@ -32,7 +32,7 @@ export default function (options = {}) {
         hooks.populate('subject', { keepOrig: true }), // typed id
         hooks.populate('user', { service: 'user-groups' }),
         cache(options.cache),
-        hooks.presentEntity(PermissionEntity, options),
+        hooks.presentEntity(PermissionEntity, options.entities),
         hooks.responder()
       ]
     }
