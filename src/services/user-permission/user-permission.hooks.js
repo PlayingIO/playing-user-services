@@ -16,11 +16,11 @@ export default function (options = {}) {
       ],
       update: [
         disallow('external'),
-        hooks.discardFields('id', 'createdAt', 'updatedAt')
+        hooks.discardFields('createdAt', 'updatedAt')
       ],
       patch: [
         disallow('external'),
-        hooks.discardFields('id', 'createdAt', 'updatedAt')
+        hooks.discardFields('createdAt', 'updatedAt')
       ],
       remove: [
         disallow('external')

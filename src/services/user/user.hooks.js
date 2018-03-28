@@ -42,14 +42,14 @@ export default function (options = {}) {
         hooks.authenticate('jwt'),
         hooks.idAsCurrentUser('me'),
         cache(options.cache),
-        hooks.discardFields('id', 'groups', 'createdAt', 'updatedAt', 'destroyedAt'),
+        hooks.discardFields('groups', 'createdAt', 'updatedAt', 'destroyedAt'),
         unless(hooks.isAction('changePassword'), local.hooks.hashPassword())
       ],
       patch: [
         hooks.authenticate('jwt'),
         hooks.idAsCurrentUser('me'),
         cache(options.cache),
-        hooks.discardFields('id', 'groups', 'createdAt', 'updatedAt', 'destroyedAt'),
+        hooks.discardFields('groups', 'createdAt', 'updatedAt', 'destroyedAt'),
         unless(hooks.isAction('changePassword'), local.hooks.hashPassword())
       ],
       remove: [
