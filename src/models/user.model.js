@@ -5,7 +5,7 @@ const options = {
   timestamps: true
 };
 
-/*
+/**
  * A "user" belongs to some "groups" with certain toles
  */
 const fields = {

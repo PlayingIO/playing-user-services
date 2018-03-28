@@ -6,7 +6,7 @@ const options = {
   timestamps: true
 };
 
-/*
+/**
  * A "group" is a collection of users.
  */
 const fields = {

@@ -1,10 +1,8 @@
-import { plugins } from 'mostly-feathers-mongoose';
-
 const options = {
   timestamps: true
 };
 
-/*
+/**
  * user's permissions list of subjects
  */
 const fields = {
