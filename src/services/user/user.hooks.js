@@ -3,7 +3,7 @@ import { iff, isProvider, unless } from 'feathers-hooks-common';
 import { hooks } from 'mostly-feathers-mongoose';
 import { cache } from 'mostly-feathers-cache';
 
-import UserEntity from '~/entities/user.entity';
+import UserEntity from '../../entities/user.entity';
 
 const accepts = {
   changePassword: [

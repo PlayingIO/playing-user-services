@@ -3,14 +3,14 @@ import bcrypt from 'bcryptjs';
 import { Service, helpers, createService } from 'mostly-feathers-mongoose';
 import fp from 'mostly-func';
 
-import UserModel from '~/models/user.model';
+import UserModel from '../../models/user.model';
 import defaultHooks from './user.hooks';
 
 const defaultOptions = {
   name: 'users'
 };
 
-class UserService extends Service {
+export class UserService extends Service {
   constructor (options) {
     options = Object.assign({}, defaultOptions, options);
     super(options);

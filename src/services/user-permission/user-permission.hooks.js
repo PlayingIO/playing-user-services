@@ -2,7 +2,7 @@ import { disallow } from 'feathers-hooks-common';
 import { hooks } from 'mostly-feathers-mongoose';
 import { cache } from 'mostly-feathers-cache';
 
-import PermissionEntity from '~/entities/user-permission.entity';
+import PermissionEntity from '../../entities/user-permission.entity';
 
 export default function (options = {}) {
   return {

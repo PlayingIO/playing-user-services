@@ -2,14 +2,14 @@ import dateFn from 'date-fns';
 import { Service, createService } from 'mostly-feathers-mongoose';
 import fp from 'mostly-func';
 
-import GroupModel from '~/models/group.model';
+import GroupModel from '../../models/group.model';
 import defaultHooks from './user-group.hooks';
 
 const defaultOptions = {
   name: 'user-groups'
 };
 
-class UserGroupService {
+export class UserGroupService {
   constructor (options) {
     this.options = Object.assign({}, defaultOptions, options);
   }

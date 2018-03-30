@@ -3,7 +3,7 @@ import makeDebug from 'debug';
 import { Service, createService } from 'mostly-feathers-mongoose';
 import fp from 'mostly-func';
 
-import LeaderboardModel from '~/models/user-permission.model';
+import LeaderboardModel from '../../models/user-permission.model';
 import defaultHooks from './user-permission.hooks';
 
 const debug = makeDebug('playing:interaction-services:user-permissions');
@@ -12,7 +12,7 @@ const defaultOptions = {
   name: 'user-permissions'
 };
 
-class PermissionService extends Service {
+export class PermissionService extends Service {
   constructor (options) {
     options = Object.assign({}, defaultOptions, options);
     super(options);

@@ -1,7 +1,7 @@
 import { hooks } from 'mostly-feathers-mongoose';
 import { cache } from 'mostly-feathers-cache';
 
-import GroupEntity from '~/entities/group.entity';
+import GroupEntity from '../../entities/group.entity';
 
 export default function (options = {}) {
   return {
