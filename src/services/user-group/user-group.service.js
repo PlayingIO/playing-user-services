@@ -1,3 +1,4 @@
+import Promise from 'bluebird';
 import dateFn from 'date-fns';
 import { Service, createService } from 'mostly-feathers-mongoose';
 import fp from 'mostly-func';
