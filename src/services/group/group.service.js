@@ -45,6 +45,10 @@ export class GroupService extends Service {
     return super.patch(id, data, params);
   }
 
+  remove (id, params) {
+    return super.remove(id, params);
+  }
+
   // nested groups
   _groups (id, data, params, orignal) {
     params.query = params.query || {};
