@@ -29,7 +29,7 @@ export class PermissionService extends Service {
     assert(data.user, 'data.user not provided.');
     data.actions = fp.is(Array, data.actions)? data.actions : [data.actions];
 
-    return super._upsert(null, data, { query: {
+    return super.upsert(null, data, { query: {
       actions: { $all: data.actions },
       subject: data.subject,
       user: data.user,
