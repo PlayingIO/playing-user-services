@@ -6,7 +6,7 @@ import fp from 'mostly-func';
 import LeaderboardModel from '../../models/user-permission.model';
 import defaultHooks from './user-permission.hooks';
 
-const debug = makeDebug('playing:interaction-services:user-permissions');
+const debug = makeDebug('playing:user-services:user-permissions');
 
 const defaultOptions = {
   name: 'user-permissions'
