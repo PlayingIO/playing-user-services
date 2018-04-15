@@ -50,16 +50,16 @@ export class GroupService extends Service {
   }
 
   // nested groups
-  groups (id, data, params, orignal) {
+  groups (id, data, params, original) {
     params.query = params.query || {};
-    params.query.parent = orignal.id;
+    params.query.parent = original.id;
     return this.find(params);
   }
 
-  users (id, data, params, orignal) {
+  users (id, data, params, original) {
     params = fp.assign({ query: {} }, params);
     params.query.groups = {
-      $elemMatch: { group: orignal.id }
+      $elemMatch: { group: original.id }
     };
     const svcUsers = this.app.service('users');
     return svcUsers.find(params);
