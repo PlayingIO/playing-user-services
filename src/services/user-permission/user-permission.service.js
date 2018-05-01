@@ -14,7 +14,7 @@ const defaultOptions = {
 
 export class PermissionService extends Service {
   constructor (options) {
-    options = Object.assign({}, defaultOptions, options);
+    options = fp.assign(defaultOptions, options);
     super(options);
   }
 
@@ -49,7 +49,7 @@ export class PermissionService extends Service {
         params.query.actions = [params.query.actions];
       }
 
-      let query = { 
+      let query = {
         actions: { $all: params.query.actions },
         subject: params.query.subject
       };
@@ -63,7 +63,7 @@ export class PermissionService extends Service {
 }
 
 export default function init (app, options, hooks) {
-  options = Object.assign({ ModelName: 'user-permission' }, options);
+  options = fp.assign({ ModelName: 'user-permission' }, options);
   return createService(app, PermissionService, LeaderboardModel, options);
 }
 
