@@ -11,7 +11,7 @@ const defaultOptions = {
 
 export class GroupService extends Service {
   constructor (options) {
-    options = Object.assign({}, defaultOptions, options);
+    options = fp.assign(defaultOptions, options);
     super(options);
   }
 
@@ -67,7 +67,7 @@ export class GroupService extends Service {
 }
 
 export default function init (app, options, hooks) {
-  options = Object.assign({ ModelName: 'group' }, options);
+  options = fp.assign({ ModelName: 'group' }, options);
   return createService(app, GroupService, GroupModel, options);
 }
 
