@@ -81,7 +81,7 @@ export class UserService extends Service {
   }
 
   addGroups (id, data, params, original) {
-    assert(fp.is(Array, data), 'data should be an array of group/role');
+    assert(fp.isArray(data), 'data should be an array of group/role');
     const groups = fp.map(pair => {
       assert(pair.group, 'array.group is not privided');
       assert(pair.role, 'array.role is not provided');
@@ -105,7 +105,7 @@ export class UserService extends Service {
   }
 
   removeGroups (id, data, params, original) {
-    assert(fp.is(Array, data), 'data should be an array of group/role');
+    assert(fp.isArray(data), 'data should be an array of group/role');
     const groups = fp.map(pair => {
       assert(pair.group, 'array.group is not privided');
       assert(pair.role, 'array.role is not provided');
