@@ -27,7 +27,7 @@ export class PermissionService extends Service {
     assert(data.actions, 'data.actions not provided.');
     assert(data.subject, 'data.subject not provided.');
     assert(data.user, 'data.user not provided.');
-    data.actions = fp.is(Array, data.actions)? data.actions : [data.actions];
+    data.actions = fp.asArray(data.actions);
 
     return super.upsert(null, data, { query: {
       actions: { $all: data.actions },
@@ -45,9 +45,7 @@ export class PermissionService extends Service {
       params = fp.assign({ query: {} }, params);
       assert(params.query.actions, 'params.query.actions is not provided.');
       assert(params.query.subject, 'params.query.subject is not provided.');
-      if (!fp.is(Array, params.query.actions)) {
-        params.query.actions = [params.query.actions];
-      }
+      params.query.actions = fp.asArray(params.query.actions);
 
       let query = {
         actions: { $all: params.query.actions },
