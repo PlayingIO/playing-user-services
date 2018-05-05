@@ -20,9 +20,9 @@ export class GroupService extends Service {
     this.hooks(defaultHooks(this.options));
 
     // administrator group
-    this.action('first').find({ query: {
-      groupname: 'administrators'
-    }}).then(result => {
+    this.get(null, {
+      query: { groupname: 'administrators' }
+    }).then(result => {
       if (!result) {
         return this.create({
           groupname: 'administrators',
