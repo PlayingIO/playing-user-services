@@ -22,7 +22,7 @@ export class UserGroupService {
 
   // latest users & groups or search by term
   find (params) {
-    params = Object.assign({ query: {} }, params);
+    params = fp.assign({ query: {} }, params);
 
     const svcUsers = this.app.service('users');
     const svcGroups = this.app.service('groups');
@@ -55,7 +55,7 @@ export class UserGroupService {
   }
 
   get (id, params) {
-    params = Object.assign({ query: {} }, params);
+    params = fp.assign({ query: {} }, params);
 
     params.query.id = id;
     params.query.$limit = 1;
