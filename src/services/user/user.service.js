@@ -17,23 +17,23 @@ export class UserService extends Service {
   }
 
   setup (app) {
-    super.setup (app);
-    this.hooks (defaultHooks (this.options));
+    super.setup(app);
+    this.hooks(defaultHooks (this.options));
 
     // administrator account
-    this.action ('first') .find ({ query: {
-      username: 'admin'
-    }}) .then (result => {
+    this.first({
+      query: { username: 'admin' }
+    }).then(result => {
       if (!result) {
-        return this.create ({
+        return this.create({
           username: 'admin',
-          password: 'password',
+          password: 'admin',
           nickname: 'Admin',
           email: 'admin@playingio.com',
           company: 'PlayingIO'
         });
       }
-    }) .catch (console.error);
+    }).catch(console.error);
   }
 
   create (data, params) {
