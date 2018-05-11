@@ -12,7 +12,7 @@ const defaultOptions = {
 
 export class UserGroupService {
   constructor (options) {
-    this.options = fp.assign(defaultOptions, options);
+    this.options = fp.assignAll(defaultOptions, options);
   }
 
   setup (app) {
