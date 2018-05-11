@@ -41,7 +41,7 @@ export class UserService extends Service {
   }
 
   find (params) {
-    params = fp.assign({ query: {} }, params);
+    params = { query: {}, ...params };
     if (params.password === true) {
       params.query.$select = helpers.addToSelect(params.query.$select || [], 'password');
     }
@@ -49,7 +49,7 @@ export class UserService extends Service {
   }
 
   get (id, params) {
-    params = fp.assign({ query: {} }, params);
+    params = { query: {}, ...params };
     if (params.password === true) {
       params.query.$select = helpers.addToSelect(params.query.$select || [], 'password');
     }

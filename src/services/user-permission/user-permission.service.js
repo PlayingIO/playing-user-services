@@ -42,7 +42,7 @@ export class PermissionService extends Service {
     if (id) {
       return super.remove(id, params);
     } else {
-      params = fp.assign({ query: {} }, params);
+      params = { query: {}, ...params };
       assert(params.query.actions, 'params.query.actions is not provided.');
       assert(params.query.subject, 'params.query.subject is not provided.');
       params.query.actions = fp.asArray(params.query.actions);

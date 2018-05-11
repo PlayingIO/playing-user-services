@@ -57,7 +57,7 @@ export class GroupService extends Service {
   }
 
   users (id, data, params, original) {
-    params = fp.assign({ query: {} }, params);
+    params = { query: {}, ...params };
     params.query.groups = {
       $elemMatch: { group: original.id }
     };
