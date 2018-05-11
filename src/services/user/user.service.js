@@ -125,7 +125,7 @@ export class UserService extends Service {
 }
 
 export default function init (app, options, hooks) {
-  options = fp.assign({ ModelName: 'user' }, options);
+  options = { ModelName: 'user', ...options };
   return createService(app, UserService, UserModel, options);
 }
 

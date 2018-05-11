@@ -61,7 +61,7 @@ export class PermissionService extends Service {
 }
 
 export default function init (app, options, hooks) {
-  options = fp.assign({ ModelName: 'user-permission' }, options);
+  options = { ModelName: 'user-permission', ...options };
   return createService(app, PermissionService, LeaderboardModel, options);
 }
 

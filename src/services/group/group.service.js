@@ -67,7 +67,7 @@ export class GroupService extends Service {
 }
 
 export default function init (app, options, hooks) {
-  options = fp.assign({ ModelName: 'group' }, options);
+  options = { ModelName: 'group', ...options };
   return createService(app, GroupService, GroupModel, options);
 }
 
