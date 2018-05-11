@@ -18,6 +18,7 @@ const fields = {
   password: { type: String, required: true, select: false },
   avatar: { type: 'Mixed' },               // blob schema
 
+  //TODO: groups too deep?
   groups: [{                               // group/role pairs, each roles in one group represent by each pairs
     _id: false,
     group: { type: 'ObjectId', required: true },
