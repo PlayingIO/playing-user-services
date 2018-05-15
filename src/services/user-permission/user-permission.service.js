@@ -29,12 +29,16 @@ export class PermissionService extends Service {
     assert(data.user, 'data.user not provided.');
     data.actions = fp.asArray(data.actions);
 
+    // workaround for upsert with $all query errors
+    // https://jira.mongodb.org/browse/SERVER-3946
+    const elemMatchAll = fp.map(action => {
+      return { $elemMatch: { $eq: action } };
+    }, data.actions);
     return super.upsert(null, data, { query: {
-      actions: { $all: data.actions },
+      actions: { $all: elemMatchAll },
       subject: data.subject,
       user: data.user,
-      role: data.role,
-      conditions: data.conditions || {}
+      role: data.role
     }});
   }
 
