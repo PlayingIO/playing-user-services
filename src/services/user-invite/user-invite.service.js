@@ -2,15 +2,15 @@ import assert from 'assert';
 import makeDebug from 'debug';
 import fp from 'mostly-func';
 
-import defaultHooks from './group-users.hooks';
+import defaultHooks from './user-invite.hooks';
 
-const debug = makeDebug('playing:user-services:groups/users');
+const debug = makeDebug('playing:user-services:users/invites');
 
 const defaultOptions = {
-  name: 'groups/users'
+  name: 'users/invites'
 };
 
-export class GroupUserService {
+export class UserInviteService {
   constructor (options) {
     this.options = fp.assignAll(defaultOptions, options);
     this.name = this.options.name;
@@ -23,7 +23,7 @@ export class GroupUserService {
 }
 
 export default function init (app, options, hooks) {
-  return new GroupUserService(options);
+  return new UserInviteService(options);
 }
 
-init.Service = GroupUserService;
+init.Service = UserInviteService;

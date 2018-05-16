@@ -1,8 +1,6 @@
 import assert from 'assert';
 import makeDebug from 'debug';
 import fp from 'mostly-func';
-import path from 'path';
-import { plural } from 'pluralize';
 
 import defaultHooks from './user-groups.hooks';
 
