@@ -32,22 +32,6 @@ export class GroupService extends Service {
       }
     }).catch(console.error);
   }
-
-  create (data, params) {
-    return super.create(data, params);
-  }
-
-  update (id, data, params) {
-    return super.update(id, data, params);
-  }
-
-  patch (id, data, params) {
-    return super.patch(id, data, params);
-  }
-
-  remove (id, params) {
-    return super.remove(id, params);
-  }
 }
 
 export default function init (app, options, hooks) {
