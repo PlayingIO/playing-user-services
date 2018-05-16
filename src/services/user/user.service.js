@@ -64,12 +64,6 @@ export class UserService extends Service {
     return super.patch(id, data, params);
   }
 
-  invite (id, data, params) {
-    assert(data.user, 'data.user is not privided');
-    // TODO invite user
-    return data.user;
-  }
-
   addGroup (id, data, params, original) {
     assert(data.group, 'data.group is not privided');
     assert(data.role, 'data.role is not provided');
