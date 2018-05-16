@@ -56,54 +56,6 @@ export class UserService extends Service {
     return super.get(id, params);
   }
 
-  addGroup (id, data, params, original) {
-    assert(data.group, 'data.group is not privided');
-    assert(data.role, 'data.role is not provided');
-    return super.patch(id, {
-      $addToSet: {
-        groups: { group: data.group, role: data.role }
-      }
-    }, params);
-  }
-
-  addGroups (id, data, params, original) {
-    assert(fp.isArray(data), 'data should be an array of group/role');
-    const groups = fp.map(pair => {
-      assert(pair.group, 'array.group is not privided');
-      assert(pair.role, 'array.role is not provided');
-      return { group: pair.group, role: pair.role };
-    }, data);
-    return super.patch(id, {
-      $addToSet: {
-        groups: { $each: groups }
-      }
-    }, params);
-  }
-
-  removeGroup (id, data, params, original) {
-    assert(data.group, 'data.group is not privided');
-    assert(data.role, 'data.role is not privided');
-    return super.patch(id, {
-      $pull: {
-        groups: { group: data.group, role: data.role }
-      }
-    }, params);
-  }
-
-  removeGroups (id, data, params, original) {
-    assert(fp.isArray(data), 'data should be an array of group/role');
-    const groups = fp.map(pair => {
-      assert(pair.group, 'array.group is not privided');
-      assert(pair.role, 'array.role is not provided');
-      return { group: pair.group, role: pair.role };
-    }, data);
-    return super.patch(id, {
-      $pullAll: {
-        groups: groups
-      }
-    }, params);
-  }
-
   changePassword (id, data, params, user) {
     assert(bcrypt.compareSync(data.password, user.password), 'Old password incorrect');
     return this.patch(id, { password: data.passwordNew }, params);
