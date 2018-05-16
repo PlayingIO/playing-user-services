@@ -49,13 +49,6 @@ export class GroupService extends Service {
     return super.remove(id, params);
   }
 
-  // nested groups
-  groups (id, data, params, original) {
-    params.query = params.query || {};
-    params.query.parent = original.id;
-    return this.find(params);
-  }
-
   users (id, data, params, original) {
     params = { query: {}, ...params };
     params.query.groups = {
