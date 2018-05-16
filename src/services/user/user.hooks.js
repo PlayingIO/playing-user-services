@@ -43,7 +43,7 @@ export default function (options = {}) {
         validate(accepts),
         cache(options.cache),
         hooks.discardFields('groups', 'createdAt', 'updatedAt', 'destroyedAt'),
-        unless(hooks.isAction('changePassword'), local.hooks.hashPassword())
+        unless(hooks.isAction('password'), local.hooks.hashPassword())
       ],
       patch: [
         hooks.authenticate('jwt'),
@@ -52,7 +52,7 @@ export default function (options = {}) {
         validate(accepts),
         cache(options.cache),
         hooks.discardFields('groups', 'createdAt', 'updatedAt', 'destroyedAt'),
-        unless(hooks.isAction('changePassword'), local.hooks.hashPassword())
+        unless(hooks.isAction('password'), local.hooks.hashPassword())
       ],
       remove: [
         hooks.authenticate('jwt'),

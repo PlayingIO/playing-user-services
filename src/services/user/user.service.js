@@ -56,9 +56,19 @@ export class UserService extends Service {
     return super.get(id, params);
   }
 
-  changePassword (id, data, params, user) {
-    assert(bcrypt.compareSync(data.password, user.password), 'Old password incorrect');
-    return this.patch(id, { password: data.passwordNew }, params);
+  /**
+   * Change password
+   */
+  async password (id, data, params) {
+    assert(id, 'user id is not provided');
+    const user = await this.get(id, { password: true });
+    assert(user, 'user is not exists');
+    assert(user.password, 'user password is not provided');
+    if (bcrypt.compareSync(data.password, user.password)) {
+      return this.patch(id, { password: data.passwordNew }, params);
+    } else {
+      throw new Error('Old password incorrect');
+    }
   }
 }
 
