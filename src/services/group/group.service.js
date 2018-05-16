@@ -48,15 +48,6 @@ export class GroupService extends Service {
   remove (id, params) {
     return super.remove(id, params);
   }
-
-  users (id, data, params, original) {
-    params = { query: {}, ...params };
-    params.query.groups = {
-      $elemMatch: { group: original.id }
-    };
-    const svcUsers = this.app.service('users');
-    return svcUsers.find(params);
-  }
 }
 
 export default function init (app, options, hooks) {
