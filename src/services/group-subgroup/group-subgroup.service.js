@@ -20,6 +20,19 @@ export class GroupSubgroupService {
     this.app = app;
     this.hooks(defaultHooks(this.options));
   }
+
+  /**
+   * find nested groups
+   */
+  find (params) {
+    params = { query: {}, ...params };
+    const target = params.target;
+    assert(target, 'target group is not exists');
+    params.query.parent = target.id;
+
+    const svcGroups = this.app.service('groups');
+    return svcGroups.find(params);
+  }
 }
 
 export default function init (app, options, hooks) {
