@@ -22,37 +22,39 @@ export class UserGroupService {
   }
 
   /**
-   * Add group/role to user
+   * Add group/role to target user
    */
   async create (data, params) {
-    const user = params.user;
-    assert(user, 'user is not exists');
+    const target = params.target;
+    assert(target, 'target user is not exists');
     assert(data.group, 'data.group is not privided');
     assert(data.role, 'data.role is not provided');
 
     const svcUsers = this.app.service('users');
-    return svcUsers.patch(user.id, {
+    const result = await svcUsers.patch(target.id, {
       $addToSet: {
         groups: { group: data.group, role: data.role }
       }
-    }, params);
+    });
+    return result && result.groups;
   }
 
   /**
-   * Remove group/role from user
+   * Remove group/role from target user
    */
   async remove (id, params) {
-    const user = params.user;
-    assert(user, 'user is not exists');
+    const target = params.target;
+    assert(target, 'target user is not exists');
     assert(params.query.group, 'params.query.group is not privided');
     assert(params.query.role, 'params.query.role is not privided');
 
     const svcUsers = this.app.service('users');
-    return svcUsers.patch(user.id, {
+    const result = await svcUsers.patch(target.id, {
       $pull: {
         groups: { group: params.query.group, role: params.query.role }
       }
-    }, params);
+    });
+    return result && result.groups;
   }
 }
 
