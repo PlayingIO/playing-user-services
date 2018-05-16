@@ -56,14 +56,6 @@ export class UserService extends Service {
     return super.get(id, params);
   }
 
-  update (id, data, params) {
-    return super.update(id, data, params);
-  }
-
-  patch (id, data, params) {
-    return super.patch(id, data, params);
-  }
-
   addGroup (id, data, params, original) {
     assert(data.group, 'data.group is not privided');
     assert(data.role, 'data.role is not provided');
