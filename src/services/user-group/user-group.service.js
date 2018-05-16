@@ -43,6 +43,7 @@ export class UserGroupService {
    * Remove group/role from target user
    */
   async remove (id, params) {
+    params = { query: {}, ...params };
     const target = params.target;
     assert(target, 'target user is not exists');
     assert(params.query.group, 'params.query.group is not privided');

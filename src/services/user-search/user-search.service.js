@@ -37,11 +37,11 @@ export class UserSearchService {
       return fp.assoc('query', query, params);
     };
 
-    const type = params.query.type;
-    const getLatestUsers = (type === 'user' || !type)
+    const type = params.query.type || 'user-group';
+    const getLatestUsers = (type === 'user' || type === 'user-group')
       ? svcUsers.find(dissocTerm('username')(params))
       : Promise.resolve();
-    const getLatestGroups = (type === 'group' || !type)
+    const getLatestGroups = (type === 'group' || type === 'user-group')
       ? svcGroups.find(dissocTerm('groupname')(params))
       : Promise.resolve();
     const [latestUsers, latestGroups] = await Promise.all([
