@@ -40,7 +40,7 @@ export class UserService extends Service {
     return super.create (data, params);
   }
 
-  find (params) {
+  async find (params) {
     params = { query: {}, ...params };
     if (params.password === true) {
       params.query.$select = helpers.addToSelect(params.query.$select || [], 'password');
@@ -48,7 +48,7 @@ export class UserService extends Service {
     return super.find(params);
   }
 
-  get (id, params) {
+  async get (id, params) {
     params = { query: {}, ...params };
     if (params.password === true) {
       params.query.$select = helpers.addToSelect(params.query.$select || [], 'password');

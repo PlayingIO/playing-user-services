@@ -24,7 +24,7 @@ export class GroupSubgroupService {
   /**
    * find nested groups
    */
-  find (params) {
+  async find (params) {
     params = { query: {}, ...params };
     const target = params.target;
     assert(target, 'target group is not exists');
