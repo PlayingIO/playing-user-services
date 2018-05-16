@@ -2,7 +2,7 @@ import assert from 'assert';
 import makeDebug from 'debug';
 import fp from 'mostly-func';
 
-import defaultHooks from './group-users.hooks';
+import defaultHooks from './group-user.hooks';
 
 const debug = makeDebug('playing:user-services:groups/users');
 
