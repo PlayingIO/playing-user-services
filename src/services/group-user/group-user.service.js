@@ -20,6 +20,20 @@ export class GroupUserService {
     this.app = app;
     this.hooks(defaultHooks(this.options));
   }
+
+  /**
+   * find users of target group
+   */
+  find (params) {
+    params = { query: {}, ...params };
+    const target = params.target;
+    assert(target, 'target group is not exists');
+    params.query.groups = {
+      $elemMatch: { group: target.id }
+    };
+    const svcUsers = this.app.service('users');
+    return svcUsers.find(params);
+  }
 }
 
 export default function init (app, options, hooks) {

@@ -7,6 +7,9 @@ export default function (options = {}) {
       all: [
         hooks.authenticate('jwt', options.auth),
         cache(options.cache)
+      ],
+      find: [
+        hooks.addRouteObject('target', { service: 'groups' })
       ]
     },
     after: {
