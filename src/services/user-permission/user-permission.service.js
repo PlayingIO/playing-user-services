@@ -12,7 +12,7 @@ const defaultOptions = {
   name: 'user-permissions'
 };
 
-export class PermissionService extends Service {
+export class UserPermissionService extends Service {
   constructor (options) {
     options = fp.assignAll(defaultOptions, options);
     super(options);
@@ -23,7 +23,7 @@ export class PermissionService extends Service {
     this.hooks(defaultHooks(this.options));
   }
 
-  create (data, params) {
+  async create (data, params) {
     assert(data.actions, 'data.actions not provided.');
     assert(data.subject, 'data.subject not provided.');
     assert(data.user, 'data.user not provided.');
@@ -42,7 +42,7 @@ export class PermissionService extends Service {
     }});
   }
 
-  remove (id, params) {
+  async remove (id, params) {
     if (id) {
       return super.remove(id, params);
     } else {
@@ -66,7 +66,7 @@ export class PermissionService extends Service {
 
 export default function init (app, options, hooks) {
   options = { ModelName: 'user-permission', ...options };
-  return createService(app, PermissionService, LeaderboardModel, options);
+  return createService(app, UserPermissionService, LeaderboardModel, options);
 }
 
-init.Service = PermissionService;
+init.Service = UserPermissionService;
