@@ -20,6 +20,22 @@ export class UserInviteService {
     this.app = app;
     this.hooks(defaultHooks(this.options));
   }
+
+  /**
+   * Find invites of current user
+   */
+  async find (params) {
+    return [];
+  }
+
+  /**
+   * Invite user to register
+   */
+  async create (data, params) {
+    assert(data.user, 'data.user is not privided');
+    // TODO invite user
+    return data.user;
+  }
 }
 
 export default function init (app, options, hooks) {
