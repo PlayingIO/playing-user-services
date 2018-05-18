@@ -3,7 +3,8 @@ import { plugins } from 'mostly-feathers-mongoose';
 import { models as contents } from 'playing-content-services';
 
 const options = {
-  timestamps: true
+  timestamps: true,
+  discriminatorKey: 'type',
 };
 
 /**
@@ -11,6 +12,7 @@ const options = {
  */
 const fields = {
   groupname: { type: String, required: true, unique: true },
+  type: { type: String, default: 'group' },  // discriminator key
   parent: { type: 'ObjectId' },              // parent group
   label: { type: String, required: true },   // display label
   description: { type: String },             // brief description of the group
