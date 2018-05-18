@@ -2,7 +2,8 @@ import { plugins } from 'mostly-feathers-mongoose';
 import random from 'mongoose-random';
 
 const options = {
-  timestamps: true
+  timestamps: true,
+  discriminatorKey: 'type',
 };
 
 /**
@@ -16,6 +17,7 @@ const fields = {
   firstName: { type: String },             // real name
   lastName: { type: String },              // real name
   password: { type: String, required: true, select: false },
+  type: { type: String, default: 'user' }, // discriminator key
   avatar: { type: 'Mixed' },               // blob schema
 
   //TODO: groups too deep?
