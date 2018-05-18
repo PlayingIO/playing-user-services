@@ -60,6 +60,8 @@ export default function model (app, name) {
   const schema = new mongoose.Schema(fields, options);
   schema.plugin(random);
   schema.plugin(plugins.softDelete);
+  schema.index({ email: 1, mobile: 1, username: 1, type: 1 });
+  schema.index({ 'groups.group': 1 });
   return mongoose.model(name, schema);
 }
 
