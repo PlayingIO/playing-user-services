@@ -65,7 +65,7 @@ export default function (options = {}) {
     after: {
       all: [
         iff(discardPassword, hooks.discardFields('password')),
-        hooks.populate('groups.group', { service: 'groups', fallThrough: ['headers'] }),
+        hooks.populate('groups', { service: 'groups', field: 'groups.group', fallThrough: ['headers'] }),
         hooks.assoc('alerts', { service: 'user-alerts', field: 'user' }),
         hooks.assoc('permissions', { service: 'user-permissions', field: 'user' }),
         cache(options.cache),
