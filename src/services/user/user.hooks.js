@@ -68,15 +68,10 @@ export default function (options = {}) {
         hooks.populate('groups', { service: 'groups', field: 'groups.group', fallThrough: ['headers'] }),
         hooks.assoc('alerts', { service: 'user-alerts', field: 'user' }),
         hooks.assoc('permissions', { service: 'user-permissions', field: 'user' }),
+        hooks.flatMerge('groups.group'),
         cache(options.cache),
         hooks.presentEntity(UserEntity, options.entities),
         hooks.responder()
-      ],
-      find: [
-        hooks.flatMerge('groups.group'),
-      ],
-      get: [
-        hooks.flatMerge('groups.group'),
       ]
     }
   };
