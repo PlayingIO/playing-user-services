@@ -20,7 +20,6 @@ const fields = {
   type: { type: String, default: 'user' }, // discriminator key
   avatar: { type: 'Mixed' },               // blob schema
 
-  //TODO: groups too deep?
   groups: [{                               // group/role pairs, each roles in one group represent by each pairs
     _id: false,
     group: { type: 'ObjectId', required: true },
@@ -35,8 +34,6 @@ const fields = {
   status: { type: Number, default: 0 },
   isAdministrator: { type: Boolean },      // admin account
 
-  alerts: { type: 'Mixed' },               // last read time of each kind of alerts
-                                           // e.g. { <alertId>: new Date() }
   devices: {
     android: { type: Array, default: undefined }, // android
     ios: { type: Array, default: undefined },     // iphone
