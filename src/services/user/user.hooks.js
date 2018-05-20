@@ -70,6 +70,12 @@ export default function (options = {}) {
         cache(options.cache),
         hooks.presentEntity(UserEntity, options.entities),
         hooks.responder()
+      ],
+      find: [
+        hooks.flatMerge('groups.group'),
+      ],
+      get: [
+        hooks.flatMerge('groups.group'),
       ]
     }
   };
