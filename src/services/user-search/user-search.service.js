@@ -6,7 +6,7 @@ import GroupModel from '../../models/group.model';
 import defaultHooks from './user-search.hooks';
 
 const defaultOptions = {
-  name: 'user-search'
+  name: 'user-searches'
 };
 
 export class UserSearchService {
