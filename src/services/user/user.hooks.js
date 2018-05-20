@@ -66,6 +66,7 @@ export default function (options = {}) {
       all: [
         iff(discardPassword, hooks.discardFields('password')),
         hooks.populate('groups.group', { service: 'groups', fallThrough: ['headers'] }),
+        hooks.assoc('alerts', { service: 'user-alerts', field: 'user' }),
         hooks.assoc('permissions', { service: 'user-permissions', field: 'user' }),
         cache(options.cache),
         hooks.presentEntity(UserEntity, options.entities),
