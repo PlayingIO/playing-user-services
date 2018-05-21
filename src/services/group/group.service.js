@@ -20,11 +20,12 @@ export class GroupService extends Service {
     this.hooks(defaultHooks(this.options));
 
     // administrator group
-    this.get(null, {
+    const svcGroups = this.app.service('groups');
+    svcGroups.get(null, {
       query: { groupname: 'administrators' }
     }).then(result => {
       if (!result) {
-        return this.create({
+        return svcGroups.create({
           groupname: 'administrators',
           label: 'Administrators Group',
           description: 'Group of users with administrative rights'
