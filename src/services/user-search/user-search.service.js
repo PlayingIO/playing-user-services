@@ -51,8 +51,8 @@ export class UserSearchService {
     const sortByCreatedAt = fp.sort((a, b) =>
       dateFn.compareDesc(a.createdAt, b.createdAt));
     const data = fp.concat(
-      latestUsers && latestUsers.data || latestUsers || [],
-      latestGroups && latestGroups.data || latestGroups || []
+      fp.propOf('data', latestUsers) || [],
+      fp.propOf('data', latestGroups) || []
     );
     return sortByCreatedAt(data);
   }
