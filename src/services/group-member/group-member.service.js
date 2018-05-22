@@ -2,15 +2,15 @@ import assert from 'assert';
 import makeDebug from 'debug';
 import fp from 'mostly-func';
 
-import defaultHooks from './group-user.hooks';
+import defaultHooks from './group-member.hooks';
 
-const debug = makeDebug('playing:user-services:groups/users');
+const debug = makeDebug('playing:user-services:groups/members');
 
 const defaultOptions = {
-  name: 'groups/users'
+  name: 'groups/members'
 };
 
-export class GroupUserService {
+export class GroupMemberService {
   constructor (options) {
     this.options = fp.assignAll(defaultOptions, options);
     this.name = this.options.name;
@@ -22,14 +22,14 @@ export class GroupUserService {
   }
 
   /**
-   * find users of target group
+   * find members of target group
    */
   async find (params) {
     params = { query: {}, ...params };
-    const target = params.target;
-    assert(target, 'target group is not exists');
+    const group = params.group;
+    assert(group, 'target group is not exists');
     params.query.groups = {
-      $elemMatch: { group: target.id }
+      $elemMatch: { group: group.id }
     };
     const svcUsers = this.app.service('users');
     return svcUsers.find(params);
@@ -37,7 +37,7 @@ export class GroupUserService {
 }
 
 export default function init (app, options, hooks) {
-  return new GroupUserService(options);
+  return new GroupMemberService(options);
 }
 
-init.Service = GroupUserService;
+init.Service = GroupMemberService;
