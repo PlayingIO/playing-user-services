@@ -19,7 +19,7 @@ export default function (options = {}) {
     },
     after: {
       all: [
-        hooks.assoc('users', { service: 'users', field: 'groups', elemMatch: 'group' }),
+        hooks.assoc('members', { service: 'users', field: 'groups', elemMatch: 'group' }),
         hooks.assoc('permissions', { service: 'user-permissions', field: 'user' }),
         hooks.populate('owner', { service: 'users' }),
         cache(options.cache),
