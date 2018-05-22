@@ -9,7 +9,7 @@ export default function (options = {}) {
         cache(options.cache)
       ],
       find: [
-        hooks.addRouteObject('group', { service: 'groups' })
+        hooks.addRouteObject('primary', { service: 'groups' })
       ]
     },
     after: {

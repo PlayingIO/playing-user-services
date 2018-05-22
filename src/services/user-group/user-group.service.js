@@ -25,7 +25,7 @@ export class UserGroupService {
    * Add group/role to target user
    */
   async create (data, params) {
-    const target = params.target;
+    const target = params.primary;
     assert(target, 'target user is not exists');
     assert(data.group, 'data.group is not privided');
     assert(data.role, 'data.role is not provided');
@@ -44,7 +44,7 @@ export class UserGroupService {
    */
   async remove (id, params) {
     params = { query: {}, ...params };
-    const target = params.target;
+    const target = params.primary;
     assert(target, 'target user is not exists');
     assert(params.query.group, 'params.query.group is not privided');
     assert(params.query.role, 'params.query.role is not privided');

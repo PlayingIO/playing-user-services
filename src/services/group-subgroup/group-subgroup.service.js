@@ -26,7 +26,7 @@ export class GroupSubgroupService {
    */
   async find (params) {
     params = { query: {}, ...params };
-    const target = params.target;
+    const target = params.primary;
     assert(target, 'target group is not exists');
     params.query.parent = target.id;
 
