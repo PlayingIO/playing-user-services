@@ -10,6 +10,20 @@ const defaultOptions = {
   name: 'users/groups'
 };
 
+// parse roles struct like { role: bool }
+const parseRoles = (roles) => {
+  return fp.isString(roles)
+    ? { [roles]: true }
+    : fp.map(fp.parseBool, roles);
+};
+
+const filterGroupRoles = (group, roles, bool) => {
+  return fp.map(
+    role => ({ group, role }),
+    fp.keys(fp.filter(fp.equals(bool), roles))
+  );
+};
+
 export class UserGroupService {
   constructor (options) {
     this.options = fp.assignAll(defaultOptions, options);
@@ -29,16 +43,10 @@ export class UserGroupService {
     assert(target, 'target user is not exists');
     assert(data.group, 'data.group is not privided');
     assert(data.role || data.roles, 'data.role(s) is not provided');
-    // roles struct like { role: bool }
-    const roles = data.roles
-      ? fp.map(fp.parseBool, data.roles)
-      : { [data.role]: true };
+    const roles = parseRoles(data.roles || data.role);
 
     const svcUsers = this.app.service('users');
-    const groups = fp.map(
-      role => ({ group: data.group, role: role }),
-      fp.keys(fp.filter(fp.equals(true), roles))
-    );
+    const groups = filterGroupRoles(data.group, roles, true);
     const result = await svcUsers.patch(target.id, {
       $addToSet: {
         groups: { $each: groups }
