@@ -47,13 +47,12 @@ export class UserGroupService {
     const target = params.primary;
     assert(target, 'target user is not exists');
     assert(params.query.group, 'params.query.group is not privided');
-    assert(params.query.role, 'params.query.role is not privided');
 
     const svcUsers = this.app.service('users');
+    let fieldConds = { group: params.query.group };
+    if (params.query.role) fieldConds.role = params.query.role;
     const result = await svcUsers.patch(target.id, {
-      $pull: {
-        groups: { group: params.query.group, role: params.query.role }
-      }
+      $pull: { groups: fieldConds }
     });
     return result && result.groups;
   }
