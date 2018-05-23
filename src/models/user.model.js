@@ -20,7 +20,8 @@ const fields = {
   type: { type: String, default: 'user' }, // discriminator key
   avatar: { type: 'Mixed' },               // blob schema
 
-  groups: [{                               // group/role pairs, each roles in one group represent by each pairs
+  // group/role pairs, not mixed type for indexing by groups.group
+  groups: [{
     _id: false,
     group: { type: 'ObjectId', required: true },
     role: { type: 'String' }

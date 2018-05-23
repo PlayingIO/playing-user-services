@@ -59,7 +59,7 @@ export class UserGroupService {
   /**
    * Update group with roles for target user
    */
-  async update (data, params) {
+  async update (id, data, params) {
     const target = params.primary;
     assert(target, 'target user is not exists');
     assert(data.group, 'data.group is not privided');
@@ -69,18 +69,20 @@ export class UserGroupService {
     const svcUsers = this.app.service('users');
     const groups = filterGroupRoles(data.group, roles, true);
     const removes = filterGroupRoles(data.group, roles, false);
-    const result = await svcUsers.patch(target.id, {
+    const added = await svcUsers.patch(target.id, {
       $addToSet: {
         groups: { $each: groups }
-      },
+      }
+    });
+    const removed = await svcUsers.patch(target.id, {
       $pull: {
         groups: {
           group: data.group,
-          role: { $in: fp.keys(fp.map(fp.prop('role'), removes)) }
+          role: { $in: fp.map(fp.prop('role'), removes) }
         }
       }
     });
-    return result && result.groups;
+    return removed && removed.groups;
   }
 
   /**
