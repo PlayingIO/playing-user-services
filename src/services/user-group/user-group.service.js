@@ -57,6 +57,33 @@ export class UserGroupService {
   }
 
   /**
+   * Update group with roles for target user
+   */
+  async update (data, params) {
+    const target = params.primary;
+    assert(target, 'target user is not exists');
+    assert(data.group, 'data.group is not privided');
+    assert(data.roles, 'data.role(s) is not provided');
+    const roles = parseRoles(data.roles || data.role);
+
+    const svcUsers = this.app.service('users');
+    const groups = filterGroupRoles(data.group, roles, true);
+    const removes = filterGroupRoles(data.group, roles, false);
+    const result = await svcUsers.patch(target.id, {
+      $addToSet: {
+        groups: { $each: groups }
+      },
+      $pull: {
+        groups: {
+          group: data.group,
+          role: { $in: fp.keys(fp.map(fp.prop('role'), removes)) }
+        }
+      }
+    });
+    return result && result.groups;
+  }
+
+  /**
    * Remove group from target user
    */
   async remove (id, params) {
