@@ -27,7 +27,7 @@ export class GroupMemberService {
   async find (params) {
     params = { query: {}, ...params };
     const group = params.primary;
-    assert(group, 'target group is not exists');
+    assert(group && group.id, 'target group is not exists');
     params.query.groups = {
       $elemMatch: { group: group.id }
     };

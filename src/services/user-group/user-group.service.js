@@ -42,10 +42,12 @@ export class UserGroupService {
    */
   async create (data, params) {
     const target = params.primary;
-    assert(target, 'target user is not exists');
+    assert(target && target.id, 'target user is not exists');
     assert(data.group, 'data.group is not privided');
     assert(data.role || data.roles, 'data.role(s) is not provided');
     const roles = parseRoles(data.roles || data.role);
+
+    // TOOD: check permission to update group
 
     const svcUsers = this.app.service('users');
     const groups = filterGroupRoles(data.group, roles, true);
@@ -62,10 +64,12 @@ export class UserGroupService {
    */
   async patch (id, data, params) {
     const target = params.primary;
-    assert(target, 'target user is not exists');
+    assert(target && target.id, 'target user is not exists');
     assert(data.group, 'data.group is not privided');
     assert(data.roles, 'data.role(s) is not provided');
     const roles = parseRoles(data.roles || data.role);
+
+    // TOOD: check permission to update group
 
     const svcUsers = this.app.service('users');
     const groups = filterGroupRoles(data.group, roles, true);
@@ -92,7 +96,7 @@ export class UserGroupService {
   async remove (id, params) {
     params = { query: {}, ...params };
     const target = params.primary;
-    assert(target, 'target user is not exists');
+    assert(target && target.id, 'target user is not exists');
     assert(params.query.group, 'params.query.group is not privided');
 
     const svcUsers = this.app.service('users');
