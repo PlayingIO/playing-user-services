@@ -59,7 +59,7 @@ export class UserGroupService {
   /**
    * Update group with roles for target user
    */
-  async update (id, data, params) {
+  async patch (id, data, params) {
     const target = params.primary;
     assert(target, 'target user is not exists');
     assert(data.group, 'data.group is not privided');

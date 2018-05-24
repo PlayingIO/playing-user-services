@@ -11,7 +11,7 @@ export default function (options = {}) {
       create: [
         hooks.addRouteObject('primary', { service: 'users' })
       ],
-      update: [
+      patch: [
         hooks.addRouteObject('primary', { service: 'users' })
       ],
       remove: [
