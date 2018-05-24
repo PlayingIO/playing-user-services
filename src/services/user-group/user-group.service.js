@@ -13,15 +13,16 @@ const defaultOptions = {
 // parse roles struct like { role: bool }
 const parseRoles = (roles) => {
   if (fp.isString(roles)) return { [roles]: true };
-  if (fp.isArray(roles)) return fp.map(role => ({ [role]: true }), roles);
+  if (fp.isArray(roles)) return fp.objOfArray(fp.always(true), roles);
   if (fp.isObject(roles)) return fp.map(fp.parseBool, roles);
   return roles;
 };
 
 const filterGroupRoles = (group, roles, bool) => {
+  const filtered = fp.filter(fp.equals(bool), roles);
   return fp.map(
     role => ({ group, role }),
-    fp.keys(fp.filter(fp.equals(bool), roles))
+    fp.keys(filtered)
   );
 };
 
