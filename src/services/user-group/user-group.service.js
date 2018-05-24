@@ -13,7 +13,7 @@ const defaultOptions = {
 // parse roles struct like { role: bool }
 const parseRoles = (roles) => {
   if (fp.isString(roles)) return { [roles]: true };
-  if (fp.isArray(roles)) return fp.objOfArray(fp.always(true), roles);
+  if (fp.isArray(roles)) return fp.objFromArray(fp.always(true), roles);
   if (fp.isObject(roles)) return fp.map(fp.parseBool, roles);
   return roles;
 };
