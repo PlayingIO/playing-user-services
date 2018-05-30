@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { plugins } from 'mostly-feathers-mongoose';
-import { models as contents } from 'playing-content-services';
+import { schemas as contents } from 'playing-content-common';
 
 const options = {
   timestamps: true,
