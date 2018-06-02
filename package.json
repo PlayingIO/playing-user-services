@@ -1,7 +1,7 @@
 {
   "name": "playing-user-services",
   "version": "1.0.13",
-  "description": "User management microservices for playful applications",
+  "description": "Users and groups management microservices for playful applications",
   "author": "Forafish",
   "license": "MIT",
   "main": "index.js",
