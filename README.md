@@ -1,7 +1,7 @@
 Playing User Services
 =====================
 
-Users and groups management microservices for playful applications.
+Users and groups management microservices for building playful applications.
 
 # Usage
 
