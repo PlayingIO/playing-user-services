@@ -13,6 +13,6 @@ UserPermissionEntity.expose('status', {}, (ace) => {
   return 'effective';
 });
 
-UserPermissionEntity.excepts('createdAt', 'updatedAt', 'destroyedAt');
+UserPermissionEntity.excepts('_id');
 
 export default UserPermissionEntity.asImmutable();
