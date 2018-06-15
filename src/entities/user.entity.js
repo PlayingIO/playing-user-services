@@ -7,6 +7,6 @@ UserEntity.expose('displayLabel', {}, (obj) => {
   return obj.nickname || (obj.firstName? obj.firstName + ' ' + obj.lastName : obj.username);
 });
 
-UserEntity.excepts('_id');
+UserEntity.discard('_id');
 
 export default UserEntity.asImmutable();

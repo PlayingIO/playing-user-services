@@ -4,6 +4,6 @@ const GroupEntity = new Entity('Group', {
   displayLabel: { get: 'label' }
 });
 
-GroupEntity.excepts('_id');
+GroupEntity.discard('_id');
 
 export default GroupEntity.asImmutable();

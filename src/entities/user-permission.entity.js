@@ -13,6 +13,6 @@ UserPermissionEntity.expose('status', {}, (ace) => {
   return 'effective';
 });
 
-UserPermissionEntity.excepts('_id');
+UserPermissionEntity.discard('_id');
 
 export default UserPermissionEntity.asImmutable();
