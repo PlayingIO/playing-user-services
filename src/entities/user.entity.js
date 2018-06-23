@@ -9,4 +9,4 @@ UserEntity.expose('displayLabel', {}, (obj) => {
 
 UserEntity.discard('_id');
 
-export default UserEntity.asImmutable();
+export default UserEntity.freeze();

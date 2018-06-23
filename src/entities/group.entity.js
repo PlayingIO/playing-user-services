@@ -6,4 +6,4 @@ const GroupEntity = new Entity('Group', {
 
 GroupEntity.discard('_id');
 
-export default GroupEntity.asImmutable();
+export default GroupEntity.freeze();
