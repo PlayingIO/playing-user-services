@@ -15,4 +15,4 @@ UserPermissionEntity.expose('status', {}, (ace) => {
 
 UserPermissionEntity.discard('_id');
 
-export default UserPermissionEntity.asImmutable();
+export default UserPermissionEntity.freeze();
