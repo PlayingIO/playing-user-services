@@ -32,7 +32,7 @@ export class UserInviteService {
    * Invite user to register
    */
   async create (data, params) {
-    assert(data.user, 'data.user is not privided');
+    assert(data.user, 'user is not privided');
     // TODO invite user
     return data.user;
   }

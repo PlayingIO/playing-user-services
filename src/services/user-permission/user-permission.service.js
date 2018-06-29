@@ -24,9 +24,9 @@ export class UserPermissionService extends Service {
   }
 
   async create (data, params) {
-    assert(data.actions, 'data.actions not provided.');
-    assert(data.subject, 'data.subject not provided.');
-    assert(data.user, 'data.user not provided.');
+    assert(data.actions, 'actions not provided.');
+    assert(data.subject, 'subject not provided.');
+    assert(data.user, 'user not provided.');
     data.actions = fp.asArray(data.actions);
 
     // workaround for upsert with $all query errors
@@ -47,8 +47,8 @@ export class UserPermissionService extends Service {
       return super.remove(id, params);
     } else {
       params = { query: {}, ...params };
-      assert(params.query.actions, 'params.query.actions is not provided.');
-      assert(params.query.subject, 'params.query.subject is not provided.');
+      assert(params.query.actions, 'query.actions is not provided.');
+      assert(params.query.subject, 'query.subject is not provided.');
       params.query.actions = fp.asArray(params.query.actions);
 
       let query = {
