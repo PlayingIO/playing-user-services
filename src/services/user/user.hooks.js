@@ -1,5 +1,5 @@
 import local from 'feathers-authentication-local';
-import { iff, isProvider, unless } from 'feathers-hooks-common';
+import { iff, unless } from 'feathers-hooks-common';
 import { hooks } from 'mostly-feathers-mongoose';
 import { cache } from 'mostly-feathers-cache';
 import { sanitize, validate } from 'mostly-feathers-validate';
