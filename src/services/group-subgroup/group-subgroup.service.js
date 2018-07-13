@@ -1,8 +1,8 @@
-import assert from 'assert';
-import makeDebug from 'debug';
-import fp from 'mostly-func';
+const assert = require('assert');
+const makeDebug = require('debug');
+const fp = require('mostly-func');
 
-import defaultHooks from './group-subgroup.hooks';
+const defaultHooks = require('./group-subgroup.hooks');
 
 const debug = makeDebug('playing:user-services:groups/subgroups');
 
@@ -10,7 +10,7 @@ const defaultOptions = {
   name: 'groups/subgroups'
 };
 
-export class GroupSubgroupService {
+class GroupSubgroupService {
   constructor (options) {
     this.options = fp.assignAll(defaultOptions, options);
     this.name = this.options.name;
@@ -35,8 +35,7 @@ export class GroupSubgroupService {
   }
 }
 
-export default function init (app, options, hooks) {
+module.exports = function init (app, options, hooks) {
   return new GroupSubgroupService(options);
-}
-
-init.Service = GroupSubgroupService;
+};
+module.exports.Service = GroupSubgroupService;

@@ -1,9 +1,9 @@
-import { hooks } from 'mostly-feathers-mongoose';
-import { cache } from 'mostly-feathers-cache';
+const { hooks } = require('mostly-feathers-mongoose');
+const { cache } = require('mostly-feathers-cache');
 
-import GroupEntity from '../../entities/group.entity';
+const GroupEntity = require('../../entities/group.entity');
 
-export default function (options = {}) {
+module.exports = function (options = {}) {
   return {
     before: {
       all: [
@@ -28,4 +28,4 @@ export default function (options = {}) {
       ]
     }
   };
-}
+};

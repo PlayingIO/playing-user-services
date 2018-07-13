@@ -1,15 +1,15 @@
-import assert from 'assert';
-import { Service, createService } from 'mostly-feathers-mongoose';
-import fp from 'mostly-func';
+const assert = require('assert');
+const { Service, createService } = require('mostly-feathers-mongoose');
+const fp = require('mostly-func');
 
-import GroupModel from '../../models/group.model';
-import defaultHooks from './group.hooks';
+const GroupModel = require('../../models/group.model');
+const defaultHooks = require('./group.hooks');
 
 const defaultOptions = {
   name: 'groups'
 };
 
-export class GroupService extends Service {
+class GroupService extends Service {
   constructor (options) {
     options = fp.assignAll(defaultOptions, options);
     super(options);
@@ -35,9 +35,8 @@ export class GroupService extends Service {
   }
 }
 
-export default function init (app, options, hooks) {
+module.exports = function init (app, options, hooks) {
   options = { ModelName: 'group', ...options };
   return createService(app, GroupService, GroupModel, options);
-}
-
-init.Service = GroupService;
+};
+module.exports.Service = GroupService;
