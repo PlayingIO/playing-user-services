@@ -1,5 +1,5 @@
-import dateFn from 'date-fns';
-import Entity from 'mostly-entity';
+const dateFn = require('date-fns');
+const Entity = require('mostly-entity');
 
 const UserPermissionEntity = new Entity('UserPermission');
 
@@ -15,4 +15,4 @@ UserPermissionEntity.expose('status', {}, (ace) => {
 
 UserPermissionEntity.discard('_id');
 
-export default UserPermissionEntity.freeze();
+module.exports = UserPermissionEntity.freeze();

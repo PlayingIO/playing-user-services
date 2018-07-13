@@ -1,4 +1,4 @@
-import Entity from 'mostly-entity';
+const Entity = require('mostly-entity');
 
 const GroupEntity = new Entity('Group', {
   displayLabel: { get: 'label' }
@@ -6,4 +6,4 @@ const GroupEntity = new Entity('Group', {
 
 GroupEntity.discard('_id');
 
-export default GroupEntity.freeze();
+module.exports = GroupEntity.freeze();

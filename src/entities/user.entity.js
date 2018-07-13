@@ -1,5 +1,5 @@
-import Entity from 'mostly-entity';
-import fp from 'mostly-func';
+const Entity = require('mostly-entity');
+const fp = require('mostly-func');
 
 const UserEntity = new Entity('User');
 
@@ -9,4 +9,4 @@ UserEntity.expose('displayLabel', {}, (obj) => {
 
 UserEntity.discard('_id');
 
-export default UserEntity.freeze();
+module.exports = UserEntity.freeze();
