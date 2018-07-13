@@ -1,7 +1,7 @@
-import { disallow } from 'feathers-hooks-common';
-import { hooks } from 'mostly-feathers-mongoose';
+const { disallow } = require('feathers-hooks-common');
+const { hooks } = require('mostly-feathers-mongoose');
 
-export default function (options = {}) {
+module.exports = function (options = {}) {
   return {
     before: {
       all: [
@@ -17,4 +17,4 @@ export default function (options = {}) {
       ]
     }
   };
-}
+};

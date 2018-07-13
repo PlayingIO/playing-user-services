@@ -1,10 +1,10 @@
-import assert from 'assert';
-import makeDebug from 'debug';
-import { Service, createService } from 'mostly-feathers-mongoose';
-import fp from 'mostly-func';
+const assert = require('assert');
+const makeDebug = require('debug');
+const { Service, createService } = require('mostly-feathers-mongoose');
+const fp = require('mostly-func');
 
-import LeaderboardModel from '../../models/user-permission.model';
-import defaultHooks from './user-permission.hooks';
+const LeaderboardModel = require('../../models/user-permission.model');
+const defaultHooks = require('./user-permission.hooks');
 
 const debug = makeDebug('playing:user-services:user-permissions');
 
@@ -12,7 +12,7 @@ const defaultOptions = {
   name: 'user-permissions'
 };
 
-export class UserPermissionService extends Service {
+class UserPermissionService extends Service {
   constructor (options) {
     options = fp.assignAll(defaultOptions, options);
     super(options);
@@ -64,9 +64,8 @@ export class UserPermissionService extends Service {
   }
 }
 
-export default function init (app, options, hooks) {
+module.exports = function init (app, options, hooks) {
   options = { ModelName: 'user-permission', ...options };
   return createService(app, UserPermissionService, LeaderboardModel, options);
-}
-
-init.Service = UserPermissionService;
+};
+module.exports.Service = UserPermissionService;

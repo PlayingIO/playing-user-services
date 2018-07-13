@@ -1,8 +1,8 @@
-import assert from 'assert';
-import makeDebug from 'debug';
-import fp from 'mostly-func';
+const assert = require('assert');
+const makeDebug = require('debug');
+const fp = require('mostly-func');
 
-import defaultHooks from './user-invite.hooks';
+const defaultHooks = require('./user-invite.hooks');
 
 const debug = makeDebug('playing:user-services:users/invites');
 
@@ -10,7 +10,7 @@ const defaultOptions = {
   name: 'users/invites'
 };
 
-export class UserInviteService {
+class UserInviteService {
   constructor (options) {
     this.options = fp.assignAll(defaultOptions, options);
     this.name = this.options.name;
@@ -38,8 +38,7 @@ export class UserInviteService {
   }
 }
 
-export default function init (app, options, hooks) {
+module.exports = function init (app, options, hooks) {
   return new UserInviteService(options);
-}
-
-init.Service = UserInviteService;
+};
+module.exports.Service = UserInviteService;

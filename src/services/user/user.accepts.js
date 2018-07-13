@@ -1,6 +1,6 @@
-import { helpers } from 'mostly-feathers-validate';
+const { helpers } = require('mostly-feathers-validate');
 
-export default function accepts (context) {
+module.exports = function accepts (context) {
   const password = { arg: 'password', type: 'string', description: 'Old password', required: true };
   const passwordNew = { arg: 'passwordNew', type: 'string', description: 'New password', required: true };
   const passwordConfirm = { arg: 'passwordConfirm', type: 'string', description: 'Confirm password', required: true };
@@ -8,4 +8,4 @@ export default function accepts (context) {
   return {
     changePassword: [ password, passwordNew, passwordConfirm ]
   };
-}
+};

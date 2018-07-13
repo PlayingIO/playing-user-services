@@ -1,16 +1,16 @@
-import assert from 'assert';
-import bcrypt from 'bcryptjs';
-import { Service, helpers, createService } from 'mostly-feathers-mongoose';
-import fp from 'mostly-func';
+const assert = require('assert');
+const bcrypt = require('bcryptjs');
+const { Service, helpers, createService } = require('mostly-feathers-mongoose');
+const fp = require('mostly-func');
 
-import UserModel from '../../models/user.model';
-import defaultHooks from './user.hooks';
+const UserModel = require('../../models/user.model');
+const defaultHooks = require('./user.hooks');
 
 const defaultOptions = {
   name: 'users'
 };
 
-export class UserService extends Service {
+class UserService extends Service {
   constructor (options) {
     options = fp.assignAll(defaultOptions, options);
     super(options);
@@ -72,9 +72,8 @@ export class UserService extends Service {
   }
 }
 
-export default function init (app, options, hooks) {
+module.exports = function init (app, options, hooks) {
   options = { ModelName: 'user', ...options };
   return createService(app, UserService, UserModel, options);
-}
-
-init.Service = UserService;
+};
+module.exports.Service = UserService;

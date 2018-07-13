@@ -1,15 +1,15 @@
-import dateFn from 'date-fns';
-import { Service, createService } from 'mostly-feathers-mongoose';
-import fp from 'mostly-func';
+const dateFn = require('date-fns');
+const { Service, createService } = require('mostly-feathers-mongoose');
+const fp = require('mostly-func');
 
-import GroupModel from '../../models/group.model';
-import defaultHooks from './user-search.hooks';
+const GroupModel = require('../../models/group.model');
+const defaultHooks = require('./user-search.hooks');
 
 const defaultOptions = {
   name: 'user-searches'
 };
 
-export class UserSearchService {
+class UserSearchService {
   constructor (options) {
     this.options = fp.assignAll(defaultOptions, options);
   }
@@ -77,8 +77,7 @@ export class UserSearchService {
   }
 }
 
-export default function init (app, options, hooks) {
+module.exports = function init (app, options, hooks) {
   return new UserSearchService(options);
-}
-
-init.Service = UserSearchService;
+};
+module.exports.Service = UserSearchService;

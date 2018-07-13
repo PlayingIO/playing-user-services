@@ -1,8 +1,8 @@
-import assert from 'assert';
-import makeDebug from 'debug';
-import fp from 'mostly-func';
+const assert = require('assert');
+const makeDebug = require('debug');
+const fp = require('mostly-func');
 
-import defaultHooks from './user-group.hooks';
+const defaultHooks = require('./user-group.hooks');
 
 const debug = makeDebug('playing:user-services:users/groups');
 
@@ -26,7 +26,7 @@ const filterGroupRoles = (group, roles, bool) => {
   );
 };
 
-export class UserGroupService {
+class UserGroupService {
   constructor (options) {
     this.options = fp.assignAll(defaultOptions, options);
     this.name = this.options.name;
@@ -109,8 +109,7 @@ export class UserGroupService {
   }
 }
 
-export default function init (app, options, hooks) {
+module.exports = function init (app, options, hooks) {
   return new UserGroupService(options);
-}
-
-init.Service = UserGroupService;
+};
+module.exports.Service = UserGroupService;

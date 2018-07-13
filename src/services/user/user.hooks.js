@@ -1,11 +1,11 @@
-import local from 'feathers-authentication-local';
-import { iff, unless } from 'feathers-hooks-common';
-import { hooks } from 'mostly-feathers-mongoose';
-import { cache } from 'mostly-feathers-cache';
-import { sanitize, validate } from 'mostly-feathers-validate';
+const local = require('feathers-authentication-local');
+const { iff, unless } = require('feathers-hooks-common');
+const { hooks } = require('mostly-feathers-mongoose');
+const { cache } = require('mostly-feathers-cache');
+const { sanitize, validate } = require('mostly-feathers-validate');
 
-import UserEntity from '../../entities/user.entity';
-import accepts from './user.accepts';
+const UserEntity = require('../../entities/user.entity');
+const accepts = require('./user.accepts');
 
 // discard password except internal call and with params.password specified
 const discardPassword = hook => {
@@ -13,7 +13,7 @@ const discardPassword = hook => {
   return !(params.password && !params.provider);
 };
 
-export default function (options = {}) {
+module.exports = function (options = {}) {
   return {
     before: {
       all: [],
@@ -75,4 +75,4 @@ export default function (options = {}) {
       ]
     }
   };
-}
+};
