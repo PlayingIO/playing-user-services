@@ -18,13 +18,12 @@ const fields = {
   conditions: { type: 'Mixed' },                // conditions
 };
 
-export default function model (app, name) {
+module.exports = function model (app, name) {
   const mongoose = app.get('mongoose');
   const schema = new mongoose.Schema(fields, options);
   schema.index({ user: 1 });
   schema.index({ subject: 1 });
   schema.index({ actions: 1, subject: 1, user: 1, role: 1 }, { unique: true });
   return mongoose.model(name, schema);
-}
-
-model.schema = fields;
+};
+module.exports.schema = fields;

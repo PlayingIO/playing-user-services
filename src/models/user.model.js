@@ -1,5 +1,5 @@
-import { plugins } from 'mostly-feathers-mongoose';
-import random from 'mongoose-random';
+const { plugins } = require('mostly-feathers-mongoose');
+const random = require('mongoose-random');
 
 const options = {
   timestamps: true,
@@ -53,7 +53,7 @@ const fields = {
   statistics: { type: 'Mixed' },
 };
 
-export default function model (app, name) {
+module.exports = function model (app, name) {
   const mongoose = app.get('mongoose');
   const schema = new mongoose.Schema(fields, options);
   schema.plugin(random);
@@ -61,6 +61,5 @@ export default function model (app, name) {
   schema.index({ email: 1, mobile: 1, username: 1, type: 1 });
   schema.index({ 'groups.group': 1 });
   return mongoose.model(name, schema);
-}
-
-model.schema = fields;
+};
+module.exports.schema = fields;
